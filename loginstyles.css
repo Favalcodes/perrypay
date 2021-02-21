@@ -1,0 +1,22 @@
+body{
+    color: #888ea8;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    /* background-color: #888ea8; */
+}
+
+form label{
+    /* text-align: left; */
+}
+.form{
+    /* color: #060818; */
+    background-color:#060818 ;
+    /* text-align: center; */
+    margin: auto;
+    width: 35%;
+    padding-left: 40px ;
+    /* font-size: 32px; */
+
+    /* border: solid; */
+    /* color:#fff; */
+    
+}
