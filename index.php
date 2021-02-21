@@ -1,0 +1,757 @@
+<?php
+
+    $amount = $coin = $usd = $ngn = '';
+    if(isset($_GET['amount']) && isset($_GET['coin'])){
+	// if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $amount = $_POST['amount'];
+        $coin = $_POST['coin'];
+        if ($coin == 'bitcoin'){
+            $usd = 57380.840 * $amount;
+            $ngn = 	25821378 * $amount;
+        }
+        if ($coin == 'ethereum'){
+            $usd = 1962.880 * $amount;
+            $ngn = 883296 * $amount;
+        }
+    }
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Stock Broker - provide the easy responsive free website templates. You can easily customize and make your own website for your startup business.">
+    <meta name="keywords" content="bootstrap template, Responsive Template, Website Template, free website templates, free website template download ">
+    <title>PerryPay</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- animsition css -->
+    <link rel="stylesheet" type="text/css" href="css/animsition.min.css">
+    <!-- Font Awesome CSS -->
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <!-- font css -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <!-- owl Carousel Css -->
+    <link href="css/owl.carousel.css" rel="stylesheet">
+    <link href="css/owl.theme.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- New(Bootstrap 5 added below)-->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
+</head>
+
+<body class="animsition">
+    <div class="intro-section">
+        <!-- intro section -->
+        <div class="top-header">
+            <!-- top heder -->
+            <div class="container">
+                <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-5  hidden-xs">
+                            <p>Welcome to our broker agency website.</p>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-7 hidden-xs">
+                            <div class="pull-right">
+                                <span class="top-link"><i class="fa fa-phone"></i> +234 1112223344</span>
+                                <span class="top-link"><i class="fa fa-envelope"></i> info@perrypay.com</span>
+                                <span class="navigation-search top-link">
+              <a href="#"><i class="fa fa-search"></i></a>
+            </span>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.top header -->
+            <!-- navigation-transparent -->
+            <div class="header">
+                <!-- navigation -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <a class="logo" href="index.html">PerryPay</a>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <div id="navigation" class="navigation">
+                                <ul class="pull-right">
+                                    <li class="active"><a href="index.html" title="Home" class="animsition-link">Home</a></li>
+                                    <li class="active"><a href="index.html" title="About" class="animsition-link">About</a></li>
+                                    <li class="active"><a href="index.html" title="Testimonials" class="animsition-link">Testimonials</a></li>
+                                    <li class="active"><a href="index.html" title="FAQs" class="animsition-link">FaQs</a></li>
+                                    <li class="active"><a href="index.html" title="Contact" class="animsition-link">Contact</a></li>
+                                    <li><a href="login.php" class="btn btn-default">Login</a></li>
+                                    <li class="active"><a href="sign-up.php" title="Create Account" class="animsition-link">Create Account</a></li>
+
+                                    <!-- <li><a href="blog.html" title="Blog" class="animsition-link">Blog</a>
+                                        <ul>
+                                            <li><a href="blog.html" title="Blog" class="animsition-link">Blog</a></li>
+                                            <li><a href="blog-single.html" title="Blog Single" class="animsition-link">Blog Single</a></li>
+                                        </ul>
+                                    </li> -->
+                                    <!-- <li><a href="#" class="btn btn-white">SignUp</a></li> -->
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- /.navigation -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-12 hidden-xs">
+                    <div class="intro-caption">
+                        <!-- intro caption -->
+                        <h1 class="intro-title">Cryptocurrency Sells <br> Never been easier.</h1>
+                        <p class="mb40">Sell your Bitcoins with velocity!<br>
+                            From your home, with the security and speed.</p>
+                        <a href="#" class="btn btn-default">Get Started</a>
+                        <a href="#" class="btn btn-white">Login</a> </div>
+                    <!-- /.intro caption -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.intro section -->
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>Exchange rates</h1>
+                <hr>
+                <div class="row">
+                   <div class="col-lg-6">
+                       <p>$1</p>
+                       <p>USD</p>
+                   </div>
+                   <div class="col-lg-6 text-right">
+                       <p>N450</p>
+                       <p>Naira Buy Rate</p>
+                   </div>
+                   <table class="table table-bordered table-responsive">
+                       <thead>
+                           <tr>
+                               <th scope="col">#</th>
+                               <th scope="col">Coin</th>
+                               <th scope="col">USD</th>
+                               <th scope="col">NGN</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+                               <td>1</td>
+                               <td>BTC</td>
+                               <td>$48,823.960</td>
+                               <td>₦21,970,782</td>
+                           </tr>
+                           <tr>
+                               <td>2</td>
+                               <td>ETH</td>
+                               <td>$1,805.230</td>
+                               <td>₦812,353.500</td>
+                           </tr>
+                       </tbody>
+                   </table>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h1>Exchange rates calculator</h1>
+                <hr>
+                <div class="row">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
+                        <div class="col-lg-6">
+                            <p>Coin</p>
+                            <select name="coin" id="coin" class="mb-2">
+                                <option value="">--Select Currency--</option>
+                                <option value="bitcoin">Bitcoin</option>
+                                <option value="ethereum">Ethereum</option>
+                            </select>
+                            <br>
+                            <br>
+                            <p>USD</p>
+                            <input type="number" name="" id="" value="<?php echo $usd ?? '' ?>" placeholder="0" disabled>
+                        </div>
+                        <div class="col-lg-6 ">
+                            <p>Amount</p>
+                            <input type="number" name="amount" id="amount" placeholder="Coin amount">
+                            <!-- The above has to be generated dynamically from the BE -->
+                            <br>
+                            <br>
+                            <p>NGN</p>
+                            <input type="number" name="" id="" value="<?php echo $ngn ?? '' ?>" placeholder="0" disabled>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Another Section -->
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="images/service-single.jpg" alt="">
+            </div>
+            <div class="col-lg-6">
+                <h1>Crafted For Secured, and <br> Reliable Transactions.</h1>
+                <p>Perry Pays provides a Bitcoin marketplace where people sell Bitcoin <br> easily and safely with notable simple UI, friendly online customer <br> support 24/7 and lowest fee compared with major players on the <br> market.</p>
+                <p> Our team is comprised mostly by banking professionals with extensive experience in financial products, E-currencies, Payment System and <br> Agile Software Development, and others.</p>
+                <button type="submit" class="btn btn-success">Create Account</button>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <br><br>
+                    <h1><i class="fa fa-laptop" aria-hidden="true"></i></h1> 
+                    <h3>Secured</h3>
+                    <p>All your transactions are 100% secure. <br> Encrypted connections and easy <br> payment methods.</p>
+                    <br><br><br>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <br><br>
+                    <h1><i class="fa fa-clock-o" aria-hidden="true"></i></h1>
+                    <h3>Fast</h3>
+                    <p>Completely fluid experience. The <br> operation will be performed instantly.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <br><br>
+                    <h1><i class="fa fa-columns" aria-hidden="true"></i></h1>
+                    <h3>Simplicity</h3>
+                    <p>In just three steps you will be able to <br> sell bitcoin 24/7 using our simple <br> interface.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cards could be used for the above section -->
+    
+    <div class="container" style="background-color: green; color: #fff;">
+        <br><br><br>
+        <div class="row text-center" >
+            <h1>100% secure transactions</h1>
+            <p>We buy Bitcoins at the very best market prices because we wanna make you(our customer) rich. <br>
+            We got Velocity in our DNA. You will testify on 1st trial or walk away! <br>   
+            More than 10k+ Transactions</p>
+            <div class="col-lg-4 text-center">
+                <h2 class="section-title">158</h2>
+                <p>Clients</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <h2 class="section-title">2.6K+</h2>
+                <p>Digital currency exchanged</p>
+            </div>
+            <div class="col-lg-4 text-center">
+                <h2 class="section-title">44.2K+</h2>
+                <p>Transactions</p>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br><br><br>
+    <div class="container">
+        <div class="row text-center">
+            <h1>Happy Clients</h1>
+        </div>
+    </div>
+    <br><br><br><br><br>
+    <div class="container">
+        <div class="text-center">
+            <h1>Frequently Asked Questions</h1>
+            <p>Knowledge</p>
+            <br><br>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 border border-dark">
+                <br>
+                <h2>Question 1</h2>
+                <p>
+                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <br>
+                <h2>Question 2</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <br>
+                <h2>Question 3</h2>
+                <p>
+                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <br>
+                <h2>Question 4</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <br>
+                <h2>Question 5</h2>
+                <p>
+                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <br>
+                <h2>Question 6</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <br>
+                <h2>Question 7</h2>
+                <p>
+                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <br>
+                <h2>Question 8</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <br>
+                <h2>Question 9</h2>
+                <p>
+                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <br>
+                <h2>Question 10</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <br><br><br><br><br><br><br><br>
+    <div class="container">
+        <div class="text-center">
+            <h1>Get In Touch</h1>
+            <h3>Contact Us</h3>
+            <br><br>
+            <div class="row">
+                <div class="col-lg-6">
+                    <form action="">
+                        <input type="text" name="name" id="name" placeholder="Your Name">
+                        <input type="text" name="email" id="email" placeholder="Your Email">
+                        <br><br>
+                        <input type="tel" name="tel" id="tel" placeholder="Your Contact Number">
+                        <input type="text" name="subject" id="subject" placeholder="Subject">
+                        <br><br>
+                        <textarea name="message" id="message" cols="30" rows="10"></textarea>
+                        <br><br>
+                        <button type="submit" class="btn btn-success">SUBMIT</button>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    Image Here
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-space80 bg-light">
+        <!-- section-space80 -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mb60">
+                    <h1>Who We Are?</h1>
+                    <p>Perry Pays provides a Bitcoin marketplace where people sell Bitcoin easily and safely with notable simple UI, friendly online customer support 24/7 and lowest fee compared with major players on the market.
+
+                        Our team is comprised mostly by banking professionals with extensive experience in financial products, E-currencies, Payment System and Agile Software Development, and others.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mb40">
+                    <h2>Take on the market with our powerful platforms</h2>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="mb30">
+                        <h3>Multiple Brokage Options</h3>
+                        <p>By having multiple brokerage accounts, you can take advantage of the strengths of each broker, mixing and matching the qualities that you find valuable. And that should save you money and offer a better overall product and experience.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="mb30">
+                        <h3>Convenience</h3>
+                        <p>Trade from the comfort of your home.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="mb30">
+                        <h3>Expert Research Recommendations</h3>
+                        <p>Leading experts in crypto currencies such as Elon Musk recommends Perry Pays.</p>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mt40">
+                    <a href="#" class="btn btn-outline">About us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.section-space80 -->
+    <div class="section-space60">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="section-title">
+                        <h1>Customer Reviews</h1>
+                        <p>We welcome feedback from our members as it helps us optimize the site to better service their needs. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="outline testimonial-block pinside30 mb30">
+                        <div class="testimonial-header">
+                            <div class="testimonial-icon">
+                                <!-- testimonial icon -->
+                                <i class="fa fa-quote-left"></i>
+                            </div>
+                            <!-- /.testimonial icon -->
+                            <span class="testimonial-title">Good Service</span>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>“I have only been with the stock pick system and short time and so for have had very good results. 34 trades with only one loss and that amount was only 1.35%”</p>
+                        </div>
+                        <div class="customer-box">
+                            <!-- customer-box -->
+                            <div class="testimonial-img">
+                                <img src="images/testimonial1.jpg" alt=" " class="img-circle">
+                            </div>
+                            <div class="testimonial-info">
+                                <h3 class="customer-name">Jose Chronister</h3>
+                                <h4 class="testimonial-meta">customer</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="outline testimonial-block pinside30 mb30">
+                        <div class="testimonial-header">
+                            <div class="testimonial-icon">
+                                <!-- testimonial icon -->
+                                <i class="fa fa-quote-left"></i>
+                            </div>
+                            <!-- /.testimonial icon -->
+                            <span class="testimonial-title">Great Discovery</span>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>“What a great discovery. This is what I have been looking for. I don’t want to Daytrade. On the other hand, I do not want to sit on it for a long time before I sell”</p>
+                        </div>
+                        <div class="customer-box">
+                            <!-- customer-box -->
+                            <div class="testimonial-img">
+                                <img src="images/testimonial2.jpg" alt=" " class="img-circle">
+                            </div>
+                            <div class="testimonial-info">
+                                <h3 class="customer-name">Lisa Greene</h3>
+                                <h4 class="testimonial-meta">customer</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="outline testimonial-block pinside30 mb30">
+                        <div class="testimonial-header">
+                            <div class="testimonial-icon">
+                                <!-- testimonial icon -->
+                                <i class="fa fa-quote-left"></i>
+                            </div>
+                            <!-- /.testimonial icon -->
+                            <span class="testimonial-title">Easy to Follow</span>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>“After searching for a site with recommendations that make sense and easy to follow I finally found one. Took about profit first and I’m just getting into the system”</p>
+                        </div>
+                        <div class="customer-box">
+                            <!-- customer-box -->
+                            <div class="testimonial-img">
+                                <img src="images/testimonial3.jpg" alt=" " class="img-circle">
+                            </div>
+                            <div class="testimonial-info">
+                                <h3 class="customer-name">Katheryn Brown</h3>
+                                <h4 class="testimonial-meta">customer</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.section-space80 -->
+    <div class="cta ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                    <h1 class="cta-title">Get in touch <br>
+                 Call, email 24/7 or visit a branch</h1>
+                    <p class="cta-text">Interdum varius quisque mattis elit quam quis posuere odio sagittisvel aliquam a imperdiet ante sed mollis libero maecenas egestaudin morbi arc.</p>
+                    <a href="#" class="btn btn-white mb30">Get Started Now</a>
+                </div>
+                <div class="col-lg-offset-1 col-lg-4 col-md-offset-1 col-md-4 col-sm-6 col-xs-12">
+                    <div class="bg-white pinside30 cta-info">
+                        <div class="cta-call">
+                            <i class="fa fa-phone"></i>
+                            <span>+91 123 456 789</span>
+                        </div>
+                        <div class="cta-mail">
+                            <i class="fa fa-envelope"></i>
+                            <span>Info@Broker.com</span>
+                        </div>
+                        <div class="cta-address">
+                            <i class="fa fa-map-marker"></i>
+                            <span class="address">
+                              4451 Jett Lane Irvine, 
+                              CA 92614
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-space80">
+        <!-- section space -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="section-title">
+                        <h1>Brokers Latest News</h1>
+                        <h3>Latest news from our blog</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="post-block pinside40 outline mb30">
+                        <!-- post block -->
+                        <div class="post-meta mb10">
+                            <!-- post meta -->
+                            <span class="meta-admin">By <a href="#" class="meta-link">Admin </a></span>
+                        </div>
+                        <!-- /.post meta -->
+                        <div class="post-header">
+                            <h1 class="post-title mb10"><a href="blog-single.html" class="title">More Than 100 Planners, One Philosophy</a></h1>
+                        </div>
+                        <div class="post-meta mb30">
+                            <!-- post meta -->
+                            <span class="meta-date"><i class="fa fa-calendar"></i> 25 April, 2017 </span>
+                            <span class="meta-comment"><i class="fa fa-comment-o"></i> <a href="#" class="meta-link">(08) </a></span>
+                        </div>
+                        <div class="post-content">
+                            <p>Aliquam sed at sollicitudin tellus aliquam imperdiet is sem rumdui id nisi blandit non lorem tellus aliquam imperdiet is sem rumdui sollicitudin semeque lorem ipsums derons libero nisi vitae elit ullamper mauris vitae dignissim suscipit lorem. </p>
+                            <a href="blog-single.html" class="btn-link">Read More</a> </div>
+                    </div>
+                    <!-- /.post block -->
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="post-block pinside40 outline">
+                        <!-- post block -->
+                        <div class="post-meta mb10">
+                            <!-- post meta -->
+                            <span class="meta-admin">By <a href="#" class="meta-link">Admin </a></span>
+                        </div>
+                        <!-- /.post meta -->
+                        <div class="post-header">
+                            <h1 class="post-title mb10"><a href="blog-single.html" class="title">The Expert Opinion We Recommendation</a></h1>
+                        </div>
+                        <div class="post-meta mb30">
+                            <!-- post meta -->
+                            <span class="meta-date"><i class="fa fa-calendar"></i> 24 April, 2017 </span>
+                            <span class="meta-comment"><i class="fa fa-comment-o"></i> <a href="#" class="meta-link">(08) </a></span>
+                        </div>
+                        <div class="post-content">
+                            <p>Proin inte llus inli bro iacu lis rhon cus.urab itur a dic tum libe roeu emes elem en tum leoiv amus dapi bus torto rsed bibe ndum ull am corp envel its scele risque feli sid pellen tesque era tull pos uere.</p>
+                            <a href="blog-single.html" class="btn-link">Read More</a> </div>
+                    </div>
+                    <!-- /.post block -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer section-space60">
+        <!-- footer -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                    <div class="footer-widget mb20">
+                        <!-- footer-widget -->
+                        <h3 class="footer-title">Contact Info</h3>
+                        <div class="ft-contact-info">
+                            <!-- ft contact info -->
+                            <div class="ft-icon">
+                                <!-- ft icon -->
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <!-- /.ft icon -->
+                            <div class="ft-content">
+                                <!-- ft content -->
+                                +91 123 456 789
+                            </div>
+                            <!-- /.ft content -->
+                        </div>
+                        <!-- /.ft contact info -->
+                        <div class="ft-contact-info">
+                            <!-- ft contact info -->
+                            <div class="ft-icon">
+                                <!-- ft icon -->
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <!-- /.ft icon -->
+                            <div class="ft-content">
+                                <!-- ft content -->
+                                info@broker.com
+                            </div>
+                            <!-- /.ft content -->
+                        </div>
+                        <!-- /.ft contact info -->
+                        <div class="ft-contact-info">
+                            <!-- ft contact info -->
+                            <div class="ft-icon">
+                                <!-- ft icon -->
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <!-- /.ft icon -->
+                            <div class="ft-content">
+                                <!-- ft content -->
+                                4451 Jett Lane Irvine,
+                                <br>CA 92614
+                            </div>
+                            <!-- /.ft content -->
+                        </div>
+                        <!-- /.ft contact info -->
+                    </div>
+                    <!-- /.footer-widget -->
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12">
+                    <div class="footer-widget mb20">
+                        <!-- footer-widget -->
+                        <h3 class="footer-title">Quick Links</h3>
+                        <ul class="bullet listnone no-padding mb0">
+                            <li><i class="fa fa-angle-right"></i> <a href="index.html" class="Home">Home</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="service-list.html" title="Services">Services</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="blog.html" title="Blog">Blog</a></li>
+                            <li><i class="fa fa-angle-right"></i> <a href="contact-us.html" title="Contact us">Contact us</a></li>
+                        </ul>
+                        <!-- /.footer-widget -->
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                    <div class="footer-widget mb20">
+                        <!-- footer-widget -->
+                        <h3 class="footer-title">Follow Us On</h3>
+                        <ul class="listnone no-padding mb0">
+                            <li class="footer-link"><a href="#"><i class="fa fa-facebook-square "></i> facebook</a></li>
+                            <li class="footer-link"><a href="#"><i class="fa fa-twitter-square "></i> twitter</a></li>
+                            <li class="footer-link"><a href="#"><i class="fa fa-google-plus-square "></i> google-plus</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.footer-widget -->
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="footer-widget">
+                        <!-- footer-widget -->
+                        <h3 class="footer-title">Newsletter</h3>
+                        <p>Subscribe our email newsletter today to receive updates.</p>
+                        <form>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="sr-only control-label">Email</label>
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Enter Email Address">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.footer-widget -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.footer -->
+    <div class="tiny-footer">
+        <!-- tiny-footer -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>Copyrights © 2017. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.tiny-footer -->
+    <!-- back to top icon -->
+    <a href=" #0 " class="cd-top" title="Go to top">Top</a>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content ">
+                <div class="modal-body">
+                    <iframe width="100%" height="600" src="https://www.youtube.com/embed/CoirzH4fByQ" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/menumaker.js"></script>
+    <script type="text/javascript">
+    $("#navigation").menumaker({
+        title: "Menu",
+        format: "multitoggle"
+    });
+    </script>
+    <!-- animsition -->
+    <script type="text/javascript" src="js/animsition.js"></script>
+    <script type="text/javascript" src="js/animsition-script.js"></script>
+    <!-- sticky header -->
+    <script type="text/javascript" src="js/jquery.sticky.js"></script>
+    <script type="text/javascript" src="js/sticky-header.js"></script>
+    <!-- owl carsoul -->
+    <script type="text/javascript" src="js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="js/testimonial.js"></script>
+    <!-- Back to top script -->
+    <script src="js/back-to-top.js" type="text/javascript"></script>
+</body>
+
+</html>
