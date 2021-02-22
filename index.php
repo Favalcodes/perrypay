@@ -80,12 +80,12 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div id="navigation" class="navigation">
                             <ul class="pull-right">
-                                <li class="active"><a href="index.php" title="Home" class="animsition-link">Home</a></li>
-                                <li class="active"><a href="#about" title="About" class="animsition-link">About</a></li>
-                                <li class="active"><a href="#test" title="Testimonials" class="animsition-link">Testimonials</a></li>
-                                <li class="active"><a href="#contact" title="Contact" class="animsition-link">Contact</a></li>
+                                <li class="active"><a href="index.php" title="Home">Home</a></li>
+                                <li><a href="#about" title="About">About</a></li>
+                                <li><a href="#test" title="Testimonials">Testimonials</a></li>
+                                <li><a href="#contact" title="Contact">Contact</a></li>
                                 <li><a href="login.php" class="btn btn-default">Login</a></li>
-                                <li class="active"><a href="sign-up.php" title="Create Account" class="animsition-link">Create Account</a></li>
+                                <li><a href="sign-up.php" title="Create Account">Create Account</a></li>
 
                                 <!-- <li><a href="blog.html" title="Blog" class="animsition-link">Blog</a>
                                         <ul>
