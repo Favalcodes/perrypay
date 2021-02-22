@@ -169,11 +169,11 @@
             <div class="col-md-6">
             <h1>Exchange rates</h1>
                 <div class="row mb-2">
-                   <div class="col-lg-6 text-right">
+                   <div class="col-md-6">
                        <p>N450</p>
                        <p>Naira Buy Rate</p>
                    </div>
-                   <div class="col-lg-6">
+                   <div class="col-md-6">
                        <p>$1</p>
                        <p>USD</p>
                    </div>
