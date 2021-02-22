@@ -80,11 +80,10 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div id="navigation" class="navigation">
                             <ul class="pull-right">
-                                <li class="active"><a href="index.html" title="Home" class="animsition-link">Home</a></li>
-                                <li class="active"><a href="index.html" title="About" class="animsition-link">About</a></li>
-                                <li class="active"><a href="index.html" title="Testimonials" class="animsition-link">Testimonials</a></li>
-                                <li class="active"><a href="index.html" title="FAQs" class="animsition-link">FaQs</a></li>
-                                <li class="active"><a href="index.html" title="Contact" class="animsition-link">Contact</a></li>
+                                <li class="active"><a href="index.php" title="Home" class="animsition-link">Home</a></li>
+                                <li class="active"><a href="#about" title="About" class="animsition-link">About</a></li>
+                                <li class="active"><a href="#test" title="Testimonials" class="animsition-link">Testimonials</a></li>
+                                <li class="active"><a href="#contact" title="Contact" class="animsition-link">Contact</a></li>
                                 <li><a href="login.php" class="btn btn-default">Login</a></li>
                                 <li class="active"><a href="sign-up.php" title="Create Account" class="animsition-link">Create Account</a></li>
 
@@ -194,7 +193,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
     <br>
     <br>
     <br>
-    <div class="container">
+    <div class="container" id="about">
         <div class="row">
             <div class="col-lg-6">
                 <img src="images/Online payment_Flatline.png" width="500" height="500" alt="">
@@ -238,25 +237,26 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
         </div>
     </div>
     <!-- Cards could be used for the above section -->
-
-    <div class="container py-4 pb-5" style="background-color: green; color: #fff;">
-        <br><br><br>
-        <h1 class="text-center">100% secure transactions</h1>
-        <p class="text-center">We buy Bitcoins at the very best market prices because we wanna make you(our customer) rich. <br>
-            We got Velocity in our DNA. You will testify on 1st trial or walk away! <br>
-            More than 10k+ Transactions</p>
-        <div class="row px-5">
-            <div class="col-lg-4 text-center">
-                <h2 class="section-title">158</h2>
-                <p>Clients</p>
-            </div>
-            <div class="col-lg-4 text-center">
-                <h2 class="section-title">2.6K+</h2>
-                <p>Digital currency exchanged</p>
-            </div>
-            <div class="col-lg-4 text-center">
-                <h2 class="section-title">44.2K+</h2>
-                <p>Transactions</p>
+    <div class="cta">
+        <div class="container py-1 pb-5">
+            <br><br><br>
+            <h1 class="text-center">100% secure transactions</h1>
+            <p class="text-center cta-text">We buy Bitcoins at the very best market prices because we wanna make you(our customer) rich. <br>
+                We got Velocity in our DNA. You will testify on 1st trial or walk away! <br>
+                More than 10k+ Transactions</p>
+            <div class="row px-5">
+                <div class="col-lg-4 text-center">
+                    <h2 class="section-title">158</h2>
+                    <p class="cta-text">Clients</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <h2 class="section-title">2.6K+</h2>
+                    <p class="cta-text">Digital currency exchanged</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <h2 class="section-title">44.2K+</h2>
+                    <p class="cta-text">Transactions</p>
+                </div>
             </div>
         </div>
     </div>
@@ -301,7 +301,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
         </div>
     </div>
     <!-- /.section-space80 -->
-    <div class="section-space60">
+    <div class="section-space60" id="test">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -391,7 +391,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
         </div>
     </div>
     <!-- /.section-space80 -->
-    <div class="cta ">
+    <div class="cta">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
@@ -421,7 +421,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
             </div>
         </div>
     </div>
-    <div class="section-space80">
+    <div class="section-space80" id="contact">
         <!-- section space -->
         <div class="container">
             <div class="row">
