@@ -1,19 +1,19 @@
 <?php
 
-    $amount = $coin = $usd = $ngn = '';
-    if(isset($_GET['amount']) && isset($_GET['coin'])){
-	// if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $amount = $_POST['amount'];
-        $coin = $_POST['coin'];
-        if ($coin == 'bitcoin'){
-            $usd = 57380.840 * $amount;
-            $ngn = 	25821378 * $amount;
-        }
-        if ($coin == 'ethereum'){
-            $usd = 1962.880 * $amount;
-            $ngn = 883296 * $amount;
-        }
+$amount = $coin = $usd = $ngn = '';
+if (isset($_GET['amount']) && isset($_GET['coin'])) {
+    // if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $amount = $_POST['amount'];
+    $coin = $_POST['coin'];
+    if ($coin == 'bitcoin') {
+        $usd = 57380.840 * $amount;
+        $ngn =     25821378 * $amount;
     }
+    if ($coin == 'ethereum') {
+        $usd = 1962.880 * $amount;
+        $ngn = 883296 * $amount;
+    }
+}
 
 ?>
 
@@ -42,15 +42,8 @@
     <!-- owl Carousel Css -->
     <link href="css/owl.carousel.css" rel="stylesheet">
     <link href="css/owl.theme.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- New(Bootstrap 5 added below)-->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
+    <!-- Theme Css -->
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 
 <body class="animsition">
@@ -60,55 +53,55 @@
             <!-- top heder -->
             <div class="container">
                 <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-5  hidden-xs">
-                            <p>Welcome to our broker agency website.</p>
+                    <div class="col-lg-4 col-md-4 col-sm-5  hidden-xs">
+                        <p>Welcome to our broker agency website.</p>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-7 hidden-xs">
+                        <div class="pull-right">
+                            <span class="top-link"><i class="fa fa-phone"></i> +234 1112223344</span>
+                            <span class="top-link"><i class="fa fa-envelope"></i> info@perrypay.com</span>
+                            <span class="navigation-search top-link">
+                                <a href="#"><i class="fa fa-search"></i></a>
+                            </span>
                         </div>
-                        <div class="col-lg-8 col-md-8 col-sm-7 hidden-xs">
-                            <div class="pull-right">
-                                <span class="top-link"><i class="fa fa-phone"></i> +234 1112223344</span>
-                                <span class="top-link"><i class="fa fa-envelope"></i> info@perrypay.com</span>
-                                <span class="navigation-search top-link">
-              <a href="#"><i class="fa fa-search"></i></a>
-            </span>
-                            </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- /.top header -->
-            <!-- navigation-transparent -->
-            <div class="header">
-                <!-- navigation -->
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                            <a class="logo" href="index.html">PerryPay</a>
-                        </div>
-                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                            <div id="navigation" class="navigation">
-                                <ul class="pull-right">
-                                    <li class="active"><a href="index.html" title="Home" class="animsition-link">Home</a></li>
-                                    <li class="active"><a href="index.html" title="About" class="animsition-link">About</a></li>
-                                    <li class="active"><a href="index.html" title="Testimonials" class="animsition-link">Testimonials</a></li>
-                                    <li class="active"><a href="index.html" title="FAQs" class="animsition-link">FaQs</a></li>
-                                    <li class="active"><a href="index.html" title="Contact" class="animsition-link">Contact</a></li>
-                                    <li><a href="login.php" class="btn btn-default">Login</a></li>
-                                    <li class="active"><a href="sign-up.php" title="Create Account" class="animsition-link">Create Account</a></li>
+        <!-- navigation-transparent -->
+        <div class="header">
+            <!-- navigation -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <a class="logo" href="index.html">PerryPay</a>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <div id="navigation" class="navigation">
+                            <ul class="pull-right">
+                                <li class="active"><a href="index.html" title="Home" class="animsition-link">Home</a></li>
+                                <li class="active"><a href="index.html" title="About" class="animsition-link">About</a></li>
+                                <li class="active"><a href="index.html" title="Testimonials" class="animsition-link">Testimonials</a></li>
+                                <li class="active"><a href="index.html" title="FAQs" class="animsition-link">FaQs</a></li>
+                                <li class="active"><a href="index.html" title="Contact" class="animsition-link">Contact</a></li>
+                                <li><a href="login.php" class="btn btn-default">Login</a></li>
+                                <li class="active"><a href="sign-up.php" title="Create Account" class="animsition-link">Create Account</a></li>
 
-                                    <!-- <li><a href="blog.html" title="Blog" class="animsition-link">Blog</a>
+                                <!-- <li><a href="blog.html" title="Blog" class="animsition-link">Blog</a>
                                         <ul>
                                             <li><a href="blog.html" title="Blog" class="animsition-link">Blog</a></li>
                                             <li><a href="blog-single.html" title="Blog Single" class="animsition-link">Blog Single</a></li>
                                         </ul>
                                     </li> -->
-                                    <!-- <li><a href="#" class="btn btn-white">SignUp</a></li> -->
-                                   
-                                </ul>
-                            </div>
+                                <!-- <li><a href="#" class="btn btn-white">SignUp</a></li> -->
+
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         <!-- /.navigation -->
         <div class="container">
             <div class="row">
@@ -119,7 +112,8 @@
                         <p class="mb40">Sell your Bitcoins with velocity!<br>
                             From your home, with the security and speed.</p>
                         <a href="#" class="btn btn-default">Get Started</a>
-                        <a href="#" class="btn btn-white">Login</a> </div>
+                        <a href="#" class="btn btn-white">Login</a>
+                    </div>
                     <!-- /.intro caption -->
                 </div>
             </div>
@@ -128,86 +122,48 @@
     <!-- /.intro section -->
     <div class="container mb-5 mt-5">
         <div class="row">
-            <!-- <div class="col-lg-6">
-                <h1>Exchange rates</h1>
-                <hr>
-                <div class="row">
-                   <div class="col-lg-6">
-                       <p>$1</p>
-                       <p>USD</p>
-                   </div>
-                   <div class="col-lg-6 text-right">
-                       <p>N450</p>
-                       <p>Naira Buy Rate</p>
-                   </div>
-                   <table class="table table-bordered table-responsive">
-                       <thead>
-                           <tr>
-                               <th scope="col">#</th>
-                               <th scope="col">Coin</th>
-                               <th scope="col">USD</th>
-                               <th scope="col">NGN</th>
-                           </tr>
-                       </thead>
-                       <tbody>
-                           <tr>
-                               <td>1</td>
-                               <td>BTC</td>
-                               <td>$48,823.960</td>
-                               <td>₦21,970,782</td>
-                           </tr>
-                           <tr>
-                               <td>2</td>
-                               <td>ETH</td>
-                               <td>$1,805.230</td>
-                               <td>₦812,353.500</td>
-                           </tr>
-                       </tbody>
-                   </table>
-                </div>
-            </div> -->
             <div class="col-md-6">
-            <h1>Exchange rates</h1>
+                <h1>Exchange rates</h1>
                 <div class="row mb-2">
-                   <div class="col-md-6">
-                       <p>N450</p>
-                       <p>Naira Buy Rate</p>
-                   </div>
-                   <div class="col-md-6">
-                       <p>$1</p>
-                       <p>USD</p>
-                   </div>
+                    <div class="col-md-6">
+                        <p>N450</p>
+                        <p>Naira Buy Rate</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>$1</p>
+                        <p>USD</p>
+                    </div>
                 </div>
-            <table class="table table-striped table-dark">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Coin</th>
-      <th scope="col">USD</th>
-      <th scope="col">NGN</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>BTC</td>
-                               <td>$48,823.960</td>
-                               <td>₦21,970,782</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>ETH</td>
-                               <td>$1,805.230</td>
-                               <td>₦812,353.500</td>
-    </tr>
-  </tbody>
-</table>
+                <table class="table table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Coin</th>
+                            <th scope="col">USD</th>
+                            <th scope="col">NGN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>BTC</td>
+                            <td>$48,823.960</td>
+                            <td>₦21,970,782</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>ETH</td>
+                            <td>$1,805.230</td>
+                            <td>₦812,353.500</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="col-md-6 pl-5">
                 <h1>Exchange rates calculator</h1>
                 <hr>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
-                <div class="row">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
+                    <div class="row">
                         <div class="col-md-6">
                             <p>Coin</p>
                             <select name="coin" id="coin" class="mb-2">
@@ -229,8 +185,8 @@
                             <p>NGN</p>
                             <input type="number" name="" id="" value="<?php echo $ngn ?? '' ?>" placeholder="0" disabled>
                         </div>
-                </div>
-                    </form>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -257,7 +213,7 @@
             <div class="col-lg-4">
                 <div class="text-center">
                     <br><br>
-                    <h1><i class="fa fa-laptop" aria-hidden="true"></i></h1> 
+                    <h1><i class="fa fa-laptop" aria-hidden="true"></i></h1>
                     <h3>Secured</h3>
                     <p>All your transactions are 100% secure. <br> Encrypted connections and easy <br> payment methods.</p>
                     <br><br><br>
@@ -282,12 +238,12 @@
         </div>
     </div>
     <!-- Cards could be used for the above section -->
-    
+
     <div class="container py-4 pb-5" style="background-color: green; color: #fff;">
         <br><br><br>
-            <h1 class="text-center">100% secure transactions</h1>
-            <p class="text-center">We buy Bitcoins at the very best market prices because we wanna make you(our customer) rich. <br>
-            We got Velocity in our DNA. You will testify on 1st trial or walk away! <br>   
+        <h1 class="text-center">100% secure transactions</h1>
+        <p class="text-center">We buy Bitcoins at the very best market prices because we wanna make you(our customer) rich. <br>
+            We got Velocity in our DNA. You will testify on 1st trial or walk away! <br>
             More than 10k+ Transactions</p>
         <div class="row px-5">
             <div class="col-lg-4 text-center">
@@ -304,127 +260,6 @@
             </div>
         </div>
     </div>
-    <!-- <br><br><br><br><br><br><br>
-    <div class="container">
-        <div class="row text-center">
-            <h1>Happy Clients</h1>
-        </div>
-    </div> -->
-    <!-- <br><br><br><br><br>
-    <div class="container">
-        <div class="text-center">
-            <h1>Frequently Asked Questions</h1>
-            <p>Knowledge</p>
-            <br><br>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 border border-dark">
-                <br>
-                <h2>Question 1</h2>
-                <p>
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
-                </p>
-            </div>
-            <div class="col-lg-6">
-                <br>
-                <h2>Question 2</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <br>
-                <h2>Question 3</h2>
-                <p>
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
-                </p>
-            </div>
-            <div class="col-lg-6">
-                <br>
-                <h2>Question 4</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <br>
-                <h2>Question 5</h2>
-                <p>
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
-                </p>
-            </div>
-            <div class="col-lg-6">
-                <br>
-                <h2>Question 6</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <br>
-                <h2>Question 7</h2>
-                <p>
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
-                </p>
-            </div>
-            <div class="col-lg-6">
-                <br>
-                <h2>Question 8</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <br>
-                <h2>Question 9</h2>
-                <p>
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ut aliquid quam pariatur corrupti maiores odit eos officiis libero. Aspernatur, excepturi dicta iste aliquid ipsa aut quasi nesciunt in laudantium.
-                </p>
-            </div>
-            <div class="col-lg-6">
-                <br>
-                <h2>Question 10</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam adipisci ex totam, laboriosam minima explicabo officiis amet, culpa facere tempora porro eos, impedit non recusandae quos saepe libero corrupti consectetur!
-                </p>
-            </div>
-        </div>
-    </div> -->
-    
-    <!-- <br><br><br><br><br><br><br><br>
-    <div class="container">
-        <div class="text-center">
-            <h1>Get In Touch</h1>
-            <h3>Contact Us</h3>
-            <br><br>
-            <div class="row">
-                <div class="col-lg-6">
-                    <form action="">
-                        <input type="text" name="name" id="name" placeholder="Your Name">
-                        <input type="text" name="email" id="email" placeholder="Your Email">
-                        <br><br>
-                        <input type="tel" name="tel" id="tel" placeholder="Your Contact Number">
-                        <input type="text" name="subject" id="subject" placeholder="Subject">
-                        <br><br>
-                        <textarea name="message" id="message" cols="30" rows="10"></textarea>
-                        <br><br>
-                        <button type="submit" class="btn btn-success">SUBMIT</button>
-                    </form>
-                </div>
-                <div class="col-lg-6">
-                    Image Here
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <div class="section-space80 bg-light">
         <!-- section-space80 -->
@@ -441,20 +276,20 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mb40">
                     <h2>Take on the market with our powerful platforms</h2>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 who w-80">
-                    <div class="mb30 py-4 mx-4 w-80">
+                <div class="col-md-4">
+                    <div class="mb30 py-4 mx-4 who">
                         <h3>Multiple Brokage Options</h3>
                         <p>By having multiple brokerage accounts, you can take advantage of the strengths of each broker, mixing and matching the qualities that you find valuable. And that should save you money and offer a better overall product and experience.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 who w-80">
-                    <div class="mb30 py-4 mx-4 w-80">
+                <div class="col-md-4">
+                    <div class="mb30 py-4 mx-4 who">
                         <h3>Convenience</h3>
-                        <p>Trade from the comfort of your home.</p>
+                        <p>Trade from the comfort of your home. Have the feel of comfortability and flexibility.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 who">
-                    <div class="mb30 py-4 mx-4">
+                <div class="col-md-4">
+                    <div class="mb30 py-4 mx-4 who">
                         <h3>Expert Research Recommendations</h3>
                         <p>Leading experts in crypto currencies such as Elon Musk recommends Perry Pays.</p>
                     </div>
@@ -561,7 +396,7 @@
             <div class="row">
                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
                     <h1 class="cta-title">Get in touch <br>
-                 Call, email 24/7 or visit a branch</h1>
+                        Call, email 24/7 or visit a branch</h1>
                     <p class="cta-text">We are always there to help you all the way.</p>
                     <a href="#" class="btn btn-white mb30">Get Started Now</a>
                 </div>
@@ -578,7 +413,7 @@
                         <div class="cta-address">
                             <i class="fa fa-map-marker"></i>
                             <span class="address">
-                              Nigeria
+                                Nigeria
                             </span>
                         </div>
                     </div>
@@ -598,27 +433,27 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputEmail4">Email</label>
-      <input type="email" class="form-control" id="inputEmail4">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="inputPassword4">Name</label>
-      <input type="text" class="form-control" id="inputPassword4">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Message</label>
-    <textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
-  </div>
-  <button type="submit" class="btn btn-success">Contact Us</button>
-</form>
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Email</label>
+                                <input type="email" class="form-control" id="inputEmail4">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Name</label>
+                                <input type="text" class="form-control" id="inputPassword4">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">Address</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress2">Message</label>
+                            <textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Contact Us</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -750,10 +585,10 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/menumaker.js"></script>
     <script type="text/javascript">
-    $("#navigation").menumaker({
-        title: "Menu",
-        format: "multitoggle"
-    });
+        $("#navigation").menumaker({
+            title: "Menu",
+            format: "multitoggle"
+        });
     </script>
     <!-- animsition -->
     <script type="text/javascript" src="js/animsition.js"></script>

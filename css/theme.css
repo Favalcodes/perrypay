@@ -1,0 +1,9 @@
+.who{
+    border: 2px solid #3fc535;
+    border-radius: 8px;
+    width: 95%;
+    height: 250px;
+    text-align: center;
+    padding: 0 15px;
+    margin: 0 auto;
+}
