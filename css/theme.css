@@ -7,3 +7,9 @@
     padding: 0 15px;
     margin: 0 auto;
 }
+.img-c{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+}

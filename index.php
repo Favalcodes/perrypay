@@ -328,7 +328,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                         <div class="customer-box">
                             <!-- customer-box -->
                             <div class="testimonial-img">
-                                <img src="images/testimonial1.jpg" alt=" " class="img-circle">
+                                <img src="images/face (1).jpg" alt=" " class="img-c">
                             </div>
                             <div class="testimonial-info">
                                 <h3 class="customer-name">Jose Chronister</h3>
@@ -353,7 +353,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                         <div class="customer-box">
                             <!-- customer-box -->
                             <div class="testimonial-img">
-                                <img src="images/testimonial2.jpg" alt=" " class="img-circle">
+                                <img src="images/face (2).jpg" alt=" " class="img-c">
                             </div>
                             <div class="testimonial-info">
                                 <h3 class="customer-name">Lisa Greene</h3>
@@ -378,7 +378,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                         <div class="customer-box">
                             <!-- customer-box -->
                             <div class="testimonial-img">
-                                <img src="images/testimonial3.jpg" alt=" " class="img-circle">
+                                <img src="images/face (3).jpg" alt=" " class="img-c">
                             </div>
                             <div class="testimonial-info">
                                 <h3 class="customer-name">Katheryn Brown</h3>
