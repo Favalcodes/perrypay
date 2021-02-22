@@ -128,7 +128,7 @@
     <!-- /.intro section -->
     <div class="container mb-5 mt-5">
         <div class="row">
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
                 <h1>Exchange rates</h1>
                 <hr>
                 <div class="row">
@@ -165,8 +165,45 @@
                        </tbody>
                    </table>
                 </div>
+            </div> -->
+            <div class="col-md-6">
+            <h1>Exchange rates</h1>
+                <div class="row mb-2">
+                   <div class="col-lg-6 text-right">
+                       <p>N450</p>
+                       <p>Naira Buy Rate</p>
+                   </div>
+                   <div class="col-lg-6">
+                       <p>$1</p>
+                       <p>USD</p>
+                   </div>
+                </div>
+            <table class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Coin</th>
+      <th scope="col">USD</th>
+      <th scope="col">NGN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>BTC</td>
+                               <td>$48,823.960</td>
+                               <td>₦21,970,782</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>ETH</td>
+                               <td>$1,805.230</td>
+                               <td>₦812,353.500</td>
+    </tr>
+  </tbody>
+</table>
             </div>
-            <div class="col-lg-6 pl-5">
+            <div class="col-md-6 pl-5">
                 <h1>Exchange rates calculator</h1>
                 <hr>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
