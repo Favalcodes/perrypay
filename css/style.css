@@ -725,3 +725,7 @@ hr{border-top:1px solid #e1e6e8; margin-bottom: 30px; margin-top: 30px;}
 .intro-title {font-size: 32px; line-height: 45px;}
 }
 
+.who{
+  border: 2px solid #3fc535;
+  border-radius: 8px;
+}

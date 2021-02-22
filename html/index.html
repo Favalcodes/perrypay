@@ -1,22 +1,3 @@
-<?php
-
-    $amount = $coin = $usd = $ngn = '';
-    if(isset($_GET['amount']) && isset($_GET['coin'])){
-	// if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $amount = $_POST['amount'];
-        $coin = $_POST['coin'];
-        if ($coin == 'bitcoin'){
-            $usd = 57380.840 * $amount;
-            $ngn = 	25821378 * $amount;
-        }
-        if ($coin == 'ethereum'){
-            $usd = 1962.880 * $amount;
-            $ngn = 883296 * $amount;
-        }
-    }
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,8 +10,7 @@
     <meta name="keywords" content="bootstrap template, Responsive Template, Website Template, free website templates, free website template download ">
     <title>PerryPay</title>
     <!-- Bootstrap -->
-    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- style css -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!-- animsition css -->
@@ -126,7 +106,7 @@
         </div>
     </div>
     <!-- /.intro section -->
-    <div class="container mb-5 mt-5">
+    <div class="container mb-5">
         <div class="row">
             <div class="col-lg-6">
                 <h1>Exchange rates</h1>
@@ -166,34 +146,32 @@
                    </table>
                 </div>
             </div>
-            <div class="col-lg-6 pl-5">
+            <div class="col-lg-6">
                 <h1>Exchange rates calculator</h1>
                 <hr>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
                 <div class="row">
-                        <div class="col-md-6">
-                            <p>Coin</p>
-                            <select name="coin" id="coin" class="mb-2">
-                                <option value="">--Select Currency--</option>
-                                <option value="bitcoin">Bitcoin</option>
-                                <option value="ethereum">Ethereum</option>
-                            </select>
-                            <br>
-                            <br>
-                            <p>USD</p>
-                            <input type="number" name="" id="" value="<?php echo $usd ?? '' ?>" placeholder="0" disabled>
-                        </div>
-                        <div class="col-md-6 ">
-                            <p>Amount</p>
-                            <input type="number" name="amount" id="amount" placeholder="Coin amount">
-                            <!-- The above has to be generated dynamically from the BE -->
-                            <br>
-                            <br>
-                            <p>NGN</p>
-                            <input type="number" name="" id="" value="<?php echo $ngn ?? '' ?>" placeholder="0" disabled>
-                        </div>
+                    <div class="col-lg-6">
+                        <p>Coin</p>
+                        <select name="coin" id="coin" class="mb-2">
+                            <option value="">--Select Currency--</option>
+                            <option value="bitcoin">Bitcoin</option>
+                            <option value="ethereurm">Ethereum</option>
+                        </select>
+                        <br>
+                        <br>
+                        <p>USD</p>
+                        <input type="number" name="USD" id="" placeholder="0" disabled>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <p>Amount</p>
+                        <input type="number" name="amount" id="amount" placeholder="Coin amount">
+                        <!-- The above has to be generated dynamically from the BE -->
+                        <br>
+                        <br>
+                        <p>NGN</p>
+                        <input type="number" name="NGN" id="" placeholder="0" disabled>
+                    </div>
                 </div>
-                    </form>
             </div>
         </div>
     </div>
@@ -204,7 +182,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <img src="images/Online payment_Flatline.png" width="500" height="500" alt="">
+                <img src="images/service-single.jpg" alt="">
             </div>
             <div class="col-lg-6">
                 <h1>Crafted For Secured, and <br> Reliable Transactions.</h1>
@@ -246,13 +224,13 @@
     </div>
     <!-- Cards could be used for the above section -->
     
-    <div class="container py-4 pb-5" style="background-color: green; color: #fff;">
+    <div class="container" style="background-color: green; color: #fff;">
         <br><br><br>
-            <h1 class="text-center">100% secure transactions</h1>
-            <p class="text-center">We buy Bitcoins at the very best market prices because we wanna make you(our customer) rich. <br>
+        <div class="row text-center" >
+            <h1>100% secure transactions</h1>
+            <p>We buy Bitcoins at the very best market prices because we wanna make you(our customer) rich. <br>
             We got Velocity in our DNA. You will testify on 1st trial or walk away! <br>   
             More than 10k+ Transactions</p>
-        <div class="row px-5">
             <div class="col-lg-4 text-center">
                 <h2 class="section-title">158</h2>
                 <p>Clients</p>
@@ -267,13 +245,13 @@
             </div>
         </div>
     </div>
-    <!-- <br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
     <div class="container">
         <div class="row text-center">
             <h1>Happy Clients</h1>
         </div>
-    </div> -->
-    <!-- <br><br><br><br><br>
+    </div>
+    <br><br><br><br><br>
     <div class="container">
         <div class="text-center">
             <h1>Frequently Asked Questions</h1>
@@ -360,9 +338,9 @@
                 </p>
             </div>
         </div>
-    </div> -->
+    </div>
     
-    <!-- <br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
     <div class="container">
         <div class="text-center">
             <h1>Get In Touch</h1>
@@ -387,7 +365,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <div class="section-space80 bg-light">
         <!-- section-space80 -->
@@ -404,20 +382,20 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center mb40">
                     <h2>Take on the market with our powerful platforms</h2>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 who w-80">
-                    <div class="mb30 py-4 mx-4 w-80">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="mb30">
                         <h3>Multiple Brokage Options</h3>
                         <p>By having multiple brokerage accounts, you can take advantage of the strengths of each broker, mixing and matching the qualities that you find valuable. And that should save you money and offer a better overall product and experience.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 who w-80">
-                    <div class="mb30 py-4 mx-4 w-80">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="mb30">
                         <h3>Convenience</h3>
                         <p>Trade from the comfort of your home.</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 who">
-                    <div class="mb30 py-4 mx-4">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <div class="mb30">
                         <h3>Expert Research Recommendations</h3>
                         <p>Leading experts in crypto currencies such as Elon Musk recommends Perry Pays.</p>
                     </div>
@@ -525,23 +503,24 @@
                 <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
                     <h1 class="cta-title">Get in touch <br>
                  Call, email 24/7 or visit a branch</h1>
-                    <p class="cta-text">We are always there to help you all the way.</p>
+                    <p class="cta-text">Interdum varius quisque mattis elit quam quis posuere odio sagittisvel aliquam a imperdiet ante sed mollis libero maecenas egestaudin morbi arc.</p>
                     <a href="#" class="btn btn-white mb30">Get Started Now</a>
                 </div>
                 <div class="col-lg-offset-1 col-lg-4 col-md-offset-1 col-md-4 col-sm-6 col-xs-12">
                     <div class="bg-white pinside30 cta-info">
                         <div class="cta-call">
                             <i class="fa fa-phone"></i>
-                            <span>+234 11223344</span>
+                            <span>+91 123 456 789</span>
                         </div>
                         <div class="cta-mail">
                             <i class="fa fa-envelope"></i>
-                            <span>Info@payperry.com</span>
+                            <span>Info@Broker.com</span>
                         </div>
                         <div class="cta-address">
                             <i class="fa fa-map-marker"></i>
                             <span class="address">
-                              Nigeria
+                              4451 Jett Lane Irvine, 
+                              CA 92614
                             </span>
                         </div>
                     </div>
@@ -555,33 +534,55 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="section-title">
-                        <h1>Contact Us</h1>
+                        <h1>Brokers Latest News</h1>
+                        <h3>Latest news from our blog</h3>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <form>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputEmail4">Email</label>
-      <input type="email" class="form-control" id="inputEmail4">
-    </div>
-    <div class="form-group col-md-6">
-      <label for="inputPassword4">Name</label>
-      <input type="text" class="form-control" id="inputPassword4">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-  </div>
-  <div class="form-group">
-    <label for="inputAddress2">Message</label>
-    <textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
-  </div>
-  <button type="submit" class="btn btn-success">Contact Us</button>
-</form>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="post-block pinside40 outline mb30">
+                        <!-- post block -->
+                        <div class="post-meta mb10">
+                            <!-- post meta -->
+                            <span class="meta-admin">By <a href="#" class="meta-link">Admin </a></span>
+                        </div>
+                        <!-- /.post meta -->
+                        <div class="post-header">
+                            <h1 class="post-title mb10"><a href="blog-single.html" class="title">More Than 100 Planners, One Philosophy</a></h1>
+                        </div>
+                        <div class="post-meta mb30">
+                            <!-- post meta -->
+                            <span class="meta-date"><i class="fa fa-calendar"></i> 25 April, 2017 </span>
+                            <span class="meta-comment"><i class="fa fa-comment-o"></i> <a href="#" class="meta-link">(08) </a></span>
+                        </div>
+                        <div class="post-content">
+                            <p>Aliquam sed at sollicitudin tellus aliquam imperdiet is sem rumdui id nisi blandit non lorem tellus aliquam imperdiet is sem rumdui sollicitudin semeque lorem ipsums derons libero nisi vitae elit ullamper mauris vitae dignissim suscipit lorem. </p>
+                            <a href="blog-single.html" class="btn-link">Read More</a> </div>
+                    </div>
+                    <!-- /.post block -->
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="post-block pinside40 outline">
+                        <!-- post block -->
+                        <div class="post-meta mb10">
+                            <!-- post meta -->
+                            <span class="meta-admin">By <a href="#" class="meta-link">Admin </a></span>
+                        </div>
+                        <!-- /.post meta -->
+                        <div class="post-header">
+                            <h1 class="post-title mb10"><a href="blog-single.html" class="title">The Expert Opinion We Recommendation</a></h1>
+                        </div>
+                        <div class="post-meta mb30">
+                            <!-- post meta -->
+                            <span class="meta-date"><i class="fa fa-calendar"></i> 24 April, 2017 </span>
+                            <span class="meta-comment"><i class="fa fa-comment-o"></i> <a href="#" class="meta-link">(08) </a></span>
+                        </div>
+                        <div class="post-content">
+                            <p>Proin inte llus inli bro iacu lis rhon cus.urab itur a dic tum libe roeu emes elem en tum leoiv amus dapi bus torto rsed bibe ndum ull am corp envel its scele risque feli sid pellen tesque era tull pos uere.</p>
+                            <a href="blog-single.html" class="btn-link">Read More</a> </div>
+                    </div>
+                    <!-- /.post block -->
                 </div>
             </div>
         </div>
@@ -603,7 +604,7 @@
                             <!-- /.ft icon -->
                             <div class="ft-content">
                                 <!-- ft content -->
-                                +234 11223344
+                                +91 123 456 789
                             </div>
                             <!-- /.ft content -->
                         </div>
@@ -617,7 +618,7 @@
                             <!-- /.ft icon -->
                             <div class="ft-content">
                                 <!-- ft content -->
-                                info@perrypay.com
+                                info@broker.com
                             </div>
                             <!-- /.ft content -->
                         </div>
@@ -631,7 +632,8 @@
                             <!-- /.ft icon -->
                             <div class="ft-content">
                                 <!-- ft content -->
-                                Nigeria
+                                4451 Jett Lane Irvine,
+                                <br>CA 92614
                             </div>
                             <!-- /.ft content -->
                         </div>
@@ -646,7 +648,7 @@
                         <ul class="bullet listnone no-padding mb0">
                             <li><i class="fa fa-angle-right"></i> <a href="index.html" class="Home">Home</a></li>
                             <li><i class="fa fa-angle-right"></i> <a href="service-list.html" title="Services">Services</a></li>
-                            <!-- <li><i class="fa fa-angle-right"></i> <a href="blog.html" title="Blog">Blog</a></li> -->
+                            <li><i class="fa fa-angle-right"></i> <a href="blog.html" title="Blog">Blog</a></li>
                             <li><i class="fa fa-angle-right"></i> <a href="contact-us.html" title="Contact us">Contact us</a></li>
                         </ul>
                         <!-- /.footer-widget -->
@@ -690,7 +692,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p>Copyrights © 2021. All Rights Reserved.</p>
+                    <p>Copyrights © 2017. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
