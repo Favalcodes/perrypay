@@ -1,6 +1,9 @@
 <?php
 // Initialize the session
 session_start();
+
+require_once "config.php";
+$client->revokeToken();
  
 // Unset all of the session variables
 $_SESSION = array();

@@ -1,7 +1,14 @@
 <?php
 
+    // Initialize the session
+    session_start();
+
     // Include config file
     require_once "config.php";
+    $loginUrl = $client->createAuthUrl();
+
+    // Require redirect file
+    // require_once "redirect.php";
  
     // Define variables and initialize with empty values
     $errors = [];
@@ -10,7 +17,7 @@
     // Processing form data when form is submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         // session_start();
-        var_dump($_POST);
+        // var_dump($_POST);
         function test_input($data){
             $data = trim($data);
             $data = stripslashes($data);
@@ -142,8 +149,16 @@
                 
                 // Attempt to execute the prepared statement
                 if($stmt->execute()){
-                    // Redirect to login page
-                    header("location: dashboard.php");
+                    // session_start(); 
+                    // // Store data in session variables
+                    // $_SESSION["loggedin"] = true;
+                    // $_SESSION["email"] = $email;
+                    // // Set cookies
+                    // $hour = time() + (3600 * 24 * 30); #Set time to 30 days. 3600 is for 1 hour
+                    // setcookie('email', $email, $hour);
+                    // setcookie('active', 1, $hour);
+                    // // Redirect to login page
+                    header("location: login.php");
                 } else{
                     echo "Something went wrong. Please try again later.";
                 }
@@ -154,6 +169,7 @@
 
         }
 
+            # Send mail below
 
     }
 
@@ -211,7 +227,7 @@
         </div>
         <br>
         <p>Or</p>
-        <p><a href="#">Google</a></p>
+        <p><a href="<?php echo  $loginUrl ?>">Google</a></p>
         <p><a href="index.html">Website</a></p>
     </form>
     

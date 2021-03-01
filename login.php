@@ -5,13 +5,17 @@
 
      
     // Check if the user is already logged in, if yes then redirect him to welcome page
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    if((isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) || (isset($_SESSION['access_token'])) || isset($_COOKIE["email"])){
         header("location: dashboard.php");
         exit;
     }
  
     // Include config file
     require_once "config.php";
+    $loginUrl = $client->createAuthUrl();
+
+    // Require redirect file
+    // require_once "redirect.php";
 
     // Define variables and initialize with empty values
     $errors = [];
@@ -68,7 +72,7 @@
                 // Check if email exists, if yes then verify password
                 if($stmt->rowCount() == 1){
                     if($row = $stmt->fetch()){
-                        $id = $row["id"];
+                        // $id = $row["id"];
                         $email = $row["email"];
                         // $username = $row["username"];
                         $hashed_password = $row["password"];
@@ -78,7 +82,7 @@
                             # New(START)
                             if ($_POST['rememberMe'] == 'on'){
                                 $hour = time() + (3600 * 24 * 30); #Set time to 30 days. 3600 is for 1 hour
-                                setcookie('id', $id, $hour);
+                                // setcookie('id', $id, $hour);
                                 setcookie('email', $email, $hour);
                                 setcookie('active', 1, $hour);
                             }
@@ -86,11 +90,11 @@
                             
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
+                            // $_SESSION["id"] = $id;
                             $_SESSION["email"] = $email;
                             // $_SESSION["username"] = $username;                            
                             
-                            // Redirect user to welcome page
+                            // Redirect user to dashboard page
                             header("location: dashboard.php");
                         } else{
                             // Display an error message if password is not valid
@@ -130,7 +134,7 @@
 </head>
 <body>
 
-    <form action="" method="POST" class="form" style="text-align: center;">  
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="form" style="text-align: center;">  
         <h1>Sign In</h1>
         <p>Log in to your account to continue.</p>
         <br>
@@ -142,7 +146,7 @@
         </div>
         <br>
         <div>
-            <label for="password">Password| <a href="#">Forgot password</a></label>
+            <label for="password">Password| <a href="forgotten-password.php">Forgot password</a></label>
             <br>
             <input type="password" name="password" id="password" placeholder="Password">
             <span class="error"><?php echo $errors['password'] ?? '' ?></span>
@@ -160,9 +164,9 @@
         <br><br>
         <p>Or</p>
         <br><br>
-        <h2><a href="#">Google</a></h2>
+        <h2><a href="<?php echo $loginUrl ?>">Google</a></h2>
         <br><br>
-        <p>Not registered? <a href="#">Create an account</a> | <a href="#">Website</a></p>
+        <p>Not registered? <a href="sign-up.php">Create an account</a> | <a href="index.php">Website</a></p>
     </div>
    
    
