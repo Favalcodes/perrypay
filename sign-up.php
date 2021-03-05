@@ -193,6 +193,7 @@
     <h1>Register</h1>
     <p>Already have an account? <a href="login.php">Log in</a></p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        
         <div>
             <label for="username">Username</label>
             <input type="text" name="username" id="username" value="<?php echo $username; ?>">
@@ -228,7 +229,7 @@
         <br>
         <p>Or</p>
         <p><a href="<?php echo  $loginUrl ?>">Google</a></p>
-        <p><a href="index.html">Website</a></p>
+        <p><a href="index.php">Website</a></p>
     </form>
     
 </body>

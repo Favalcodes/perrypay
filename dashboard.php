@@ -13,7 +13,7 @@
         $user = true;
     }
     if ($user !== true){
-        header("location:login.php");
+        header("location: ../login.php");
         exit();
     }
 

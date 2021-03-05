@@ -75,7 +75,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <a class="logo" href="index.html">PerryPay</a>
+                        <a class="logo" href="index.php">PerryPay</a>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div id="navigation" class="navigation">
@@ -111,7 +111,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                         <p class="mb40">Sell your Bitcoins with velocity!<br>
                             From your home, with the security and speed.</p>
                         <a href="#" class="btn btn-default">Get Started</a>
-                        <a href="#" class="btn btn-white">Login</a>
+                        <a href="login.php" class="btn btn-white">Login</a>
                     </div>
                     <!-- /.intro caption -->
                 </div>

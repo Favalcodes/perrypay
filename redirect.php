@@ -45,7 +45,7 @@
                     $_SESSION["email"] = $email;
 
                     // Redirect user to dashboard page
-                    header("location: dashboard.php");
+                    header("location: dashboard/index.php");
                 } else {
                     $sql = "INSERT INTO users (username, email, my_referral_id, active) VALUES (:username, :email, :my_referral_id, 1)";
 
@@ -74,7 +74,7 @@
                             setcookie('email', $email, $hour);
                             setcookie('active', 1, $hour);
                             // Redirect to dashboard page
-                            header("location: dashboard.php");
+                            header("location: dashboard/index.php.php");
                         }
                     }
                 }

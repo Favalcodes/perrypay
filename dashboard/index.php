@@ -1,3 +1,24 @@
+<?php
+
+    // Initialize the session
+    session_start();
+ 
+    if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true){
+        $user = true;
+    }
+    if (isset($_COOKIE["active"]) || isset($_COOKIE["id"]) || isset($_COOKIE["email"])){
+        $user = true;
+    }
+    if(isset($_SESSION['access_token'])){
+        $user = true;
+    }
+    if ($user !== true){
+        header("location:../login.php");
+        exit();
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

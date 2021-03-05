@@ -6,7 +6,8 @@
      
     // Check if the user is already logged in, if yes then redirect him to welcome page
     if((isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) || (isset($_SESSION['access_token'])) || isset($_COOKIE["email"])){
-        header("location: dashboard.php");
+        // header("location: dashboard.php");
+        header("location: dashboard/index.php");
         exit;
     }
  
@@ -95,7 +96,7 @@
                             // $_SESSION["username"] = $username;                            
                             
                             // Redirect user to dashboard page
-                            header("location: dashboard.php");
+                            header("location: dashboard/index.php");
                         } else{
                             // Display an error message if password is not valid
                             $errors["password"] = "The password you entered was not valid.";
