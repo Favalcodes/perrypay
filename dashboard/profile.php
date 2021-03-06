@@ -7,6 +7,7 @@
     require_once "../config.php";
 
     $email = $_SESSION['email'];
+    $errors = [];
     
     // Prepare a select statement
     $sql = "SELECT * FROM users WHERE email = :email";
@@ -29,16 +30,78 @@
                 $bank = $row['bank'] ?? '';
                 $accountType = $row['account_type'] ?? '';
                 $accountNumber = $row['account_number'] ?? '';
+                $fileNameNew = $row['image'];
 
             }
         }
     }
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        if(isset($_FILES["photo"])){
+            $fileName = $_FILES["photo"]["name"];
+            $fileType = $_FILES["photo"]["type"];
+            $fileSize = $_FILES["photo"]["size"];
+            $fileTmpName = $_FILES['photo']['tmp_name'];
+            $fileError = $_FILES['photo']['error'];
+        }
+
+        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+        $fileActualExt= strtolower($ext); # Change the all extensions cases to lower cases
+
+        // Allowed file types
+        $allowed = array("jpg", "jpeg", "png");
+
+        // Verify file size - 10MB maximum
+        $maxSize = 10 * 1024 * 1024;
+
+        if (in_array($fileActualExt, $allowed)){
+            if ($fileError === 0) {
+                if ($fileSize < $maxSize){
+                    $fileNameNew = uniqid('', true).".".$fileActualExt;
+                    $targetDirectory = "uploads/";
+
+                    // make sure the 'uploads' folder exists
+                    // if not, create it
+                    if(!is_dir($targetDirectory)){
+                        mkdir($targetDirectory, 0777, true);
+                    }
+                    $fileDestination = $targetDirectory.$fileNameNew;
+                    move_uploaded_file($fileTmpName, $fileDestination);                          
+                } else {
+                    $errors['photo'] = "Your photo is too big";
+                }
+            } else {
+                # This is for the file info error
+                $errors['photo'] = "There was an error uploading your photo!";
+            }
+        } else {
+            # This is if the file is not of the filetype in $allowed array
+            $errors['photo'] =  "You cannot upload photos of this type!";
+        }
+    
+        if (empty($errors)){
+            $sql = "UPDATE users SET image = :image WHERE email = :email";
+            if ($stmt = $pdo->prepare($sql)) {
+                // Bind variables to the prepared statement as parameters
+                $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+                $stmt->bindParam(':image', $param_image);           
+                // Set parameters
+                $param_email = $_SESSION["email"];
+                $param_image = $fileNameNew;
+
+                if($stmt->execute()){
+                    echo "<script>alert('Photo Uploaded')</script>";
+                } else{
+                    echo "Oops! Something went wrong. Please try again later.";
+                }
+
+                // Close statement
+                unset($stmt);
+            }
+        }
         
-    }
-
-
+    } 
 
 ?>
 
@@ -103,15 +166,17 @@
     <div class='content'>
         <div class="row profile-tab">
             <div class="col-md-3">
-                <img src="../images/avatar.png" alt="" class="picture">
+                <!-- <img src="../images/avatar.png" alt="" class="picture"> -->
+                <?php echo isset($fileNameNew ) ? "<img src='uploads/{$fileNameNew}'  class='picture'>" : "<img src='../images/avatar.png' alt='' class='picture'>";  ?>
+                <?php echo $errors['photo'] ?? '' ?>
             </div>
             <div class="col-md-9">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" >
-                    <input type="file" name="file" id="file">
+                    <input type="file" name="photo" id="file">
                     <button type="submit" class="change-pix">
                         Change Profile Picture
                     </button>
-                    <p><strong>Note:</strong> Only .jpg, .jpeg, .png, formats allowed to a max size of 5 MB.</p>
+                    <p><strong>Note:</strong> Only .jpg, .jpeg, .png, formats allowed to a max size of 10 MB.</p>
                 </form>
             </div>
         </div>
