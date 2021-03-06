@@ -163,9 +163,9 @@
 
     <div style="text-align: center;">
         <br><br>
-        <p>Or</p>
-        <br><br>
-        <h2><a href="<?php echo $loginUrl ?>">Google</a></h2>
+        <!-- <p>Or</p> -->
+        <!-- <br><br> -->
+        <!-- <h2><a href="<?php echo $loginUrl ?>">Google</a></h2> -->
         <br><br>
         <p>Not registered? <a href="sign-up.php">Create an account</a> | <a href="index.php">Website</a></p>
     </div>

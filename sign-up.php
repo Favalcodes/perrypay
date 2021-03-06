@@ -263,8 +263,8 @@
             <button type="submit">Get Started!</button>
         </div>
         <br>
-        <p>Or</p>
-        <p><a href="<?php echo  $loginUrl ?>">Google</a></p>
+        <!-- <p>Or</p> -->
+        <!-- <p><a href="<?php echo  $loginUrl ?>">Google</a></p> -->
         <p><a href="index.php">Website</a></p>
     </form>
     
