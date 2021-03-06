@@ -1,21 +1,21 @@
 <?php
 
-    // Initialize the session
-    session_start();
- 
-    if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true){
-        $user = true;
-    }
-    if (isset($_COOKIE["active"]) || isset($_COOKIE["id"]) || isset($_COOKIE["email"])){
-        $user = true;
-    }
-    if(isset($_SESSION['access_token'])){
-        $user = true;
-    }
-    if ($user !== true){
-        header("location:../login.php");
-        exit();
-    }
+// Initialize the session
+session_start();
+
+if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
+    $user = true;
+}
+if (isset($_COOKIE["active"]) || isset($_COOKIE["id"]) || isset($_COOKIE["email"])) {
+    $user = true;
+}
+if (isset($_SESSION['access_token'])) {
+    $user = true;
+}
+if ($user !== true) {
+    header("location:../login.php");
+    exit();
+}
 
 ?>
 
@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <style type="text/css">
-        
+
     </style>
     <script>
         function ajx(v, b) {
@@ -68,7 +68,7 @@
         </form>
     </div>
     <div class='sidebar'>
-        <div href='' onclick='window.location = this.getAttribute("href")' class='logo'><img src="../images/perry.png" alt="" class="perry-logo" width="100" height="100"></div>
+        <div href='' onclick='window.location = this.getAttribute("href")' class='logo'><a href="../index.php"><img src="../images/perry.png" alt="" class="perry-logo" width="100" height="100"></a></div>
         <ul class="maxsid">
             <li class="chosen"><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Home</a></li>
             <li><i class="fa fa-user"></i><a href="profile.php" class="nav-link"> Profile</a></li>
@@ -104,9 +104,30 @@
                     <strong>NGN 0.00</strong>
                 </div>
                 <div class="open-modal">
-                    <button class="coin-btn" type="button" data-toggle="modal" data-target="#staticBackdrop">
+                    <button class="coin-btn" type="button" data-toggle="modal" data-target="#coinwithdrawal">
                         Coin Withdrawal
                     </button>
+
+                    <!-- Modals -->
+                    <div class="modal fade" id="coinwithdrawal" tabindex="-1" aria-labelledby="coinwithdrawalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="coinwithdrawalLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    something
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button class="coin-btn">
                         Coin Exchange
                     </button>
@@ -129,27 +150,8 @@
             </div>
         </div>
     </div>
+
 </body>
 
-<!-- Modals -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 </html>

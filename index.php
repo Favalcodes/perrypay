@@ -75,7 +75,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <a class="logo" href="index.php">PerryPay</a>
+                        <a class="logo" href="index.php"><img src="images/perry.png" alt="" class="perry-logo"></a>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div id="navigation" class="navigation">

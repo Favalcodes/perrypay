@@ -1,3 +1,6 @@
+body{
+    overflow-x: hidden;
+}
 .who{
     border: 2px solid #3fc535;
     border-radius: 8px;
@@ -12,4 +15,47 @@
     height: 110px;
     border-radius: 50%;
     object-fit: cover;
+}
+.reg-body{
+    height: calc(100% - 14px);
+    width: calc(100% - 14px);
+    margin: 40px;
+    background: linear-gradient(180deg, #1d1d1d 55%, #024d21);
+    font-family: Montserrat;
+    align-items: center;
+}
+.card{
+    width: 500px;
+    margin: 0px auto;
+    padding: 20px;
+    background-color: #10da53;
+}
+.reg-btn{
+    color: #fff;
+    background-color: #024d21;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.form-control{
+    background: transparent;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 3px solid #024d21;
+}
+.create{
+    color: #f1f1f1;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+a:hover{
+    text-decoration: none;
+    color: inherit;
+}
+.perry-logo{
+    height: 80px;
+    width: 80px;
 }

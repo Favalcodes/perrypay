@@ -124,40 +124,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="loginstyles.css"> -->
-    <title>Document</title>
-    <style>
-		.error {color: #FF0000;}
-	</style>
+    <title>PerryPay</title>
+    <!-- <script src="assets/js/jquery-1.js" defer></script> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
-<body>
-
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="form" style="text-align: center;">  
-        <h1>Sign In</h1>
-        <p>Log in to your account to continue.</p>
-        <br>
+<body class="reg-body">
+<div class="card">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="form">  
+    <div class="d-flex justify-content-between">
+        <h4>Login</h4>
+        <h4><a href="index.php">PerryPays</a></h4>
+        </div>
         <div>
-            <label for="email">Email</label>
+            <label for="email"><strong>Email</strong></label>
             <br>
-            <input type="text" name="email" id="email" value="<?php echo $email; ?>" placeholder="example@mail.com">
+            <input type="text" name="email" id="email" value="<?php echo $email; ?>" placeholder="example@mail.com" class="form-control">
             <span class="error"><?php echo $errors['email'] ?? '' ?></span>
         </div>
         <br>
         <div>
-            <label for="password">Password| <a href="forgotten-password.php">Forgot password</a></label>
+            <label for="password"><strong>Password</strong></label>
             <br>
-            <input type="password" name="password" id="password" placeholder="Password">
+            <input type="password" name="password" id="password" placeholder="Password" class="form-control">
             <span class="error"><?php echo $errors['password'] ?? '' ?></span>
+            <a href="forgotten-password.php" class="create">Forgot password</a>
         </div>
         <br>
         <input type="checkbox" name="rememberMe" id="rememberMe">
         <label for="remember">Remember me</label>
         <br><br>
         <div>
-            <button type="submit">Log In</button>   
+            <button type="submit" class="reg-btn">Log In</button>   
         </div>
     </form>
 
@@ -167,9 +169,9 @@
         <!-- <br><br> -->
         <!-- <h2><a href="<?php echo $loginUrl ?>">Google</a></h2> -->
         <br><br>
-        <p>Not registered? <a href="sign-up.php">Create an account</a> | <a href="index.php">Website</a></p>
+        <p>Not registered? <a href="sign-up.php" class="create">Create an account</a>
     </div>
    
-   
+</div>
 </body>
 </html>
