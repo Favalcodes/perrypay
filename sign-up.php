@@ -12,7 +12,7 @@
  
     // Define variables and initialize with empty values
     $errors = [];
-    $username = $email = $password = $referral_id = '';
+    $firstname = $lastname = $username = $email = $password = $referral_id = '';
 
     // Processing form data when form is submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -25,6 +25,27 @@
             return $data;
         }		
     
+        #Test firstname
+        if (empty($_POST['firstname'])){
+            $errors['firstname'] = 'First Name is required';
+        } else {
+            $firstname = test_input($_POST['firstname']);
+            if (!preg_match("/^[a-zA-Z]*$/", $firstname)){
+                $errors['firstname'] = "Only letters and white spaces allowed";
+            }
+        }
+
+        # Test lastname
+        #Test lastname
+        if (empty($_POST['lastname'])){
+            $errors['lastname'] = 'Last Name is required';
+        } else {
+            $lastname = test_input($_POST['lastname']);
+            if (!preg_match("/^[a-zA-Z]*$/", $lastname)){
+                $errors['lastname'] = "Only letters and white spaces allowed";
+            }
+        }
+
         # Test username
         if (empty($_POST['username'])){
             $errors['username'] = 'Username is required';
@@ -129,10 +150,12 @@
         if (empty($errors)){
             // echo "All is well";
              // Prepare an insert statement
-            $sql = "INSERT INTO users (username, email, password, referral_id, my_referral_id, active) VALUES (:username, :email, :password, :referral_id, :my_referral_id, 1)";
+            $sql = "INSERT INTO users (firstname, lastname, username, email, password, referral_id, my_referral_id, active) VALUES (:firstname, :lastname, :username, :email, :password, :referral_id, :my_referral_id, 1)";
             
             if($stmt = $pdo->prepare($sql)){
                 // Bind variables to the prepared statement as parameters
+                $stmt->bindParam(":firstname", $param_firstname, PDO::PARAM_STR);
+                $stmt->bindParam(":lastname", $param_lastname, PDO::PARAM_STR);
                 $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
@@ -140,6 +163,8 @@
                 $stmt->bindParam(":my_referral_id", $param_my_id, PDO::PARAM_STR);
                 
                 // Set parameters
+                $param_firstname = $firstname;
+                $param_lastname = $lastname;
                 $param_username = $username;
                 $param_email = $email;
                 $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash and salt
@@ -193,7 +218,18 @@
     <h1>Register</h1>
     <p>Already have an account? <a href="login.php">Log in</a></p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-        
+        <div>
+            <label for="firstname">First Name</label>
+            <input type="text" name="firstname" id="firstname" value="<?php echo $firstname; ?>">
+            <span class="error"><?php echo $errors['firstname'] ?? '' ?></span>
+        </div>
+        <br>
+        <div>
+            <label for="lastname">Last Name</label>
+            <input type="text" name="lastname" id="lastname" value="<?php echo $lastname; ?>">
+            <span class="error"><?php echo $errors['lastname'] ?? '' ?></span>
+        </div>
+        <br>
         <div>
             <label for="username">Username</label>
             <input type="text" name="username" id="username" value="<?php echo $username; ?>">

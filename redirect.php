@@ -19,7 +19,10 @@
         $google_oauth = new Google_Service_Oauth2($client);
         $google_account_info = $google_oauth->userinfo->get();
         $email =  $google_account_info->email;
-        $name =  $google_account_info->name;
+        $username =  $google_account_info->name;
+        $firstname = $google_account_info->givenName;
+        $lastname = $google_account_info->familyName;
+
         // echo "<pre>";
         // var_dump($email);
 
@@ -47,16 +50,20 @@
                     // Redirect user to dashboard page
                     header("location: dashboard/index.php");
                 } else {
-                    $sql = "INSERT INTO users (username, email, my_referral_id, active) VALUES (:username, :email, :my_referral_id, 1)";
+                    $sql = "INSERT INTO users (firstname, lastname, username, email, my_referral_id, active) VALUES (:firstname, :lastname, :username, :email, :my_referral_id, 1)";
 
                     if($stmt = $pdo->prepare($sql)){
                         // Bind variables to the prepared statement as parameters
+                        $stmt->bindParam(":firstname", $param_firstname, PDO::PARAM_STR);
+                        $stmt->bindParam(":lastname", $param_lastname, PDO::PARAM_STR);
                         $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
                         $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                         $stmt->bindParam(":my_referral_id", $param_my_id, PDO::PARAM_STR);
 
                         // Set parameters
-                        $param_username = $name;
+                        $param_firstname = $firstname;
+                        $param_lastname = $lastname;
+                        $param_username = $username;
                         $param_email = $email;
                         $rand = rand(100,999);
                         $param_my_id = $rand;
@@ -74,7 +81,7 @@
                             setcookie('email', $email, $hour);
                             setcookie('active', 1, $hour);
                             // Redirect to dashboard page
-                            header("location: dashboard/index.php.php");
+                            header("location: dashboard/index.php.");
                         }
                     }
                 }

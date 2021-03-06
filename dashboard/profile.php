@@ -1,3 +1,43 @@
+<?php
+
+    // Start session
+    session_start();
+
+    // Include config file
+    require_once "../config.php";
+
+    $email = $_SESSION['email'];
+    
+    // Prepare a select statement
+    $sql = "SELECT * FROM users WHERE email = :email";
+    if ($stmt = $pdo->prepare($sql)){
+        // Bind variables to the prepared statement as parameters
+        $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+        $param_email = $email;
+
+        // Attempt to execute the prepared statement
+        if ($stmt->execute()){
+            // Check if email exists
+            if($stmt->rowCount() == 1){
+                $row = $stmt->fetch();
+
+                $firstName = $row['firstname'];
+                $lastName = $row['lastname'];
+                $email = $row['email'];
+                $username = $row['username'];
+                $mobileNumber = $row['mobile_number'] ?? '';
+                $bank = $row['bank'] ?? '';
+                $accountType = $row['account_type'] ?? '';
+                $accountNumber = $row['account_number'] ?? '';
+
+            }
+        }
+    }
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,35 +110,35 @@
         <div class="row profile-details">
             <div class="col-md-6">
                 <h6>First Name</h6>
-                <p>This is first name</p>
+                <p><?php echo $firstName ?></p>
             </div>
             <div class="col-md-6">
                 <h6>Last Name</h6>
-                <p>This is first name</p>
+                <p><?php echo $lastName ?></p>
             </div>
             <div class="col-md-6">
                 <h6>Email</h6>
-                <p>This is first name</p>
+                <p><?php echo $email ?></p>
             </div>
             <div class="col-md-6">
                 <h6>Username</h6>
-                <p>This is first name</p>
+                <p><?php echo $username ?></p>
             </div>
             <div class="col-md-6">
                 <h6>Mobile Number</h6>
-                <p>This is first name</p>
+                <p><?php echo $mobileNumber ?></p>
             </div>
             <div class="col-md-6">
                 <h6>Bank</h6>
-                <p>This is first name</p>
+                <p><?php echo $bank ?></p>
             </div>
             <div class="col-md-6">
                 <h6>Account Type</h6>
-                <p>This is first name</p>
+                <p><?php echo $accountType ?></p>
             </div>
             <div class="col-md-6">
                 <h6>Account Number</h6>
-                <p>This is first name</p>
+                <p><?php echo $accountNumber ?></p>
             </div>
         </div>
     </div>

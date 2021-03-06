@@ -1,3 +1,93 @@
+<?php
+
+    // Initialize the session
+    session_start();
+ 
+    if(isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true){
+        $user = true;
+    }
+    if (isset($_COOKIE["active"]) || isset($_COOKIE["id"]) || isset($_COOKIE["email"])){
+        $user = true;
+    }
+    if(isset($_SESSION['access_token'])){
+        $user = true;
+    }
+    if ($user !== true){
+        header("location:../login.php");
+        exit();
+    }
+
+    // Include config file
+    require_once "../config.php";
+
+    // Define variables and initialize with empty values
+    $errors = [];
+    $new_password = $confirm_password = "";    
+    
+    // Processing form data when form is submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        function test_input($data){
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }	
+
+         // Validate new password
+        if (empty($_POST['new_password'])){
+            $errors['new_password_err'] = "Please enter the new password.";   
+        }
+        if (!empty($_POST['new_password'])){
+            $new_password = test_input($_POST['new_password']);
+            if(strlen($new_password) < 8){
+                $errors['new_password_err'] = 'Password must have at least 8 characters.';
+            }
+        }
+        
+        // Validate confirm password
+        if(empty($_POST["confirm_password"])){
+            $errors['confirm_password_err'] = "Please confirm the password.";
+        } else{
+            $confirm_password = test_input($_POST["confirm_password"]); 
+            if(empty($errors['confirm_password_err']) && ($new_password != $confirm_password)){
+                $errors['confirm_password_err']  = "Password did not match.";
+            }
+        }
+
+        // Check input errors before updating the database
+        if (empty($errors)){
+            // Prepare an update statement
+            $sql = "UPDATE users SET password = :password WHERE email = :email";
+            
+            if($stmt = $pdo->prepare($sql)){
+                // Bind variables to the prepared statement as parameters
+                $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+                $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+                
+                // Set parameters
+                $param_password = password_hash($new_password, PASSWORD_DEFAULT);
+                $param_email = $_SESSION["email"];
+                
+                // Attempt to execute the prepared statement
+                if($stmt->execute()){
+                    // Password updated successfully.
+
+                    # The echo statement should be in a modal
+                    echo "Password reset successfully";
+                } else{
+                    echo "Oops! Something went wrong. Please try again later.";
+                }
+
+                // Close statement
+                unset($stmt);
+            }
+        }
+    }
+    
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +95,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Dashboard | Classbeam</title>
+    <style>
+		.error {color: #FF0000;}
+	</style>
     <script src="assets/js/jquery-1.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
@@ -61,14 +154,18 @@
             <div class="row">
                 <div class="col-md-6">
                     <h6 class="mb-3">Change Password</h6>
-                    <form>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">New Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword">
+                            <input type="password" name="new_password"  class="form-control" value="<?php echo $new_password; ?>"
+                             id="exampleInputPassword">
+                             <span class="error"><?php echo $errors['new_password_err'] ?? '' ?></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Confirm Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword">
+                            <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>" 
+                            id="exampleInputPassword">
+                            <span class="error"><?php echo $errors['confirm_password_err'] ?? '' ?></span>
                         </div>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
