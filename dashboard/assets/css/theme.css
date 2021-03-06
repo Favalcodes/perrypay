@@ -104,6 +104,9 @@ body>div {
     font-size: 18px;
     font-weight: 700;
 }
+.form-control.pwd {
+    width: 50%;
+}
 .content {
     background-color: #fff;
     border-radius: 20px;

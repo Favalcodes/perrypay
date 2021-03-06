@@ -34,6 +34,10 @@
         }
     }
 
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+    }
+
 
 
 ?>
@@ -102,43 +106,47 @@
                 <img src="../images/avatar.png" alt="" class="picture">
             </div>
             <div class="col-md-9">
-                <button class="change-pix">
-                    Change Profile Picture
-                </button>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" >
+                    <input type="file" name="file" id="file">
+                    <button type="submit" class="change-pix">
+                        Change Profile Picture
+                    </button>
+                    <p><strong>Note:</strong> Only .jpg, .jpeg, .png, formats allowed to a max size of 5 MB.</p>
+                </form>
             </div>
         </div>
         <div class="row profile-details">
             <div class="col-md-6">
                 <h6>First Name</h6>
-                <p><?php echo $firstName ?></p>
+                <input type="text" name="" id="" value="<?php echo $firstName ?>" disabled>
             </div>
             <div class="col-md-6">
                 <h6>Last Name</h6>
-                <p><?php echo $lastName ?></p>
+                <input type="text" name="" id="" value="<?php echo $lastName ?>" disabled>
             </div>
             <div class="col-md-6">
                 <h6>Email</h6>
-                <p><?php echo $email ?></p>
+                <input type="text" name="" id="" value="<?php echo $email ?>" disabled>
             </div>
             <div class="col-md-6">
                 <h6>Username</h6>
-                <p><?php echo $username ?></p>
+                <input type="text" name="" id="" value="<?php echo $username ?>" disabled>
             </div>
             <div class="col-md-6">
                 <h6>Mobile Number</h6>
-                <p><?php echo $mobileNumber ?></p>
+                <input type="tel" name="" id="" value="<?php echo $mobileNumber ?>" disabled>
             </div>
             <div class="col-md-6">
                 <h6>Bank</h6>
-                <p><?php echo $bank ?></p>
+                <input type="text" name="" id="" value="<?php echo $bank ?>" disabled>
             </div>
             <div class="col-md-6">
                 <h6>Account Type</h6>
-                <p><?php echo $accountType ?></p>
+                <input type="text" name="" id="" value="<?php echo $accountType ?>" disabled>
             </div>
             <div class="col-md-6">
                 <h6>Account Number</h6>
-                <p><?php echo $accountNumber ?></p>
+                <input type="number" name="" id="" value="<?php echo $accountNumber ?>" disabled>
             </div>
         </div>
     </div>

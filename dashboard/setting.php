@@ -74,7 +74,7 @@
                     // Password updated successfully.
 
                     # The echo statement should be in a modal
-                    echo "Password reset successfully";
+                    echo "<script>alert('Password reset successfully')</script>";
                 } else{
                     echo "Oops! Something went wrong. Please try again later.";
                 }
@@ -152,18 +152,18 @@
     <div class='content'>
         <div class="setting-content">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <h6 class="mb-3">Change Password</h6>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
                             <label for="exampleInputEmail1">New Password</label>
-                            <input type="password" name="new_password"  class="form-control" value="<?php echo $new_password; ?>"
-                             id="exampleInputPassword">
+                            <input type="password" name="new_password"  class="form-control pwd" value="<?php echo $new_password; ?>"
+                             id="exampleInputPassword" >
                              <span class="error"><?php echo $errors['new_password_err'] ?? '' ?></span>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Confirm Password</label>
-                            <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>" 
+                            <input type="password" name="confirm_password" class="form-control pwd" value="<?php echo $confirm_password; ?>" 
                             id="exampleInputPassword">
                             <span class="error"><?php echo $errors['confirm_password_err'] ?? '' ?></span>
                         </div>
@@ -174,16 +174,7 @@
                         <button type="submit" class="coin-btn">Submit</button>
                     </form>
                 </div>
-                <div class="col-md-6">
-                    <h6 class="mb-3">Change Email</h6>
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">New Email</label>
-                            <input type="email" class="form-control" id="exampleInputPassword">
-                        </div>
-                        <button type="submit" class="coin-btn">Submit</button>
-                    </form>
-                </div>
+               
             </div>
             <div class="row">
                 <div class="col-md-12">
