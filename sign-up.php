@@ -12,7 +12,7 @@ $loginUrl = $client->createAuthUrl();
 
 // Define variables and initialize with empty values
 $errors = [];
-$firstname = $lastname = $username = $email = $password = $referral_id = '';
+$firstname = $lastname = $username = $email = $password = $bank = $account = $s_key = '';
 
 // Processing form data when form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -124,11 +124,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
+    // bank
+    if (empty($_POST['bank'])) {
+        $errors['bank'] = 'Bank is required';
+    } else {
+        $bank = test_input($_POST['bank']);
+        if (!preg_match("/^[a-zA-Z]*$/", $bank)) {
+            $errors['bank'] = "Only letters and white spaces allowed";
+        }
+    }
+
+    // account
+    if (empty($_POST['account'])) {
+        $errors['account'] = 'Account Number is required';
+    } elseif (strlen($_POST['account']) < 10 || strlen($_POST['account']) > 10) {
+        $errors['account'] = 'Account number is a 10 digit number.';
+    }else{
+        $account = test_input($_POST['account']);
+    }
+
+    // s_key
+    if (empty($_POST['s_key'])) {
+        $errors['s_key'] = 'Security Key is required';
+    } elseif (strlen($_POST['s_key']) < 4 || strlen($_POST['s_key']) > 4) {
+        $errors['s_key'] = 'security Key has to be 4 characters';
+    } else{
+        $s_key = test_input($_POST['s_key']);
+    }
+
     # Check input errors before inserting in database
     if (empty($errors)) {
         // echo "All is well";
         // Prepare an insert statement
-        $sql = "INSERT INTO users (firstname, lastname, username, email, password, active) VALUES (:firstname, :lastname, :username, :email, :password, 1)";
+        $sql = "INSERT INTO users (firstname, lastname, username, email, password, bank, account, s_key, active) VALUES (:firstname, :lastname, :username, :email, :password, :bank, :account, :s_key, 1)";
 
         if ($stmt = $pdo->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
@@ -137,6 +165,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
             $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+            $stmt->bindParam(":bank", $param_bank, PDO::PARAM_STR);
+            $stmt->bindParam(":account", $param_account, PDO::PARAM_STR);
+            $stmt->bindParam(":s_key", $param_s_key, PDO::PARAM_STR);
 
             // Set parameters
             $param_firstname = $firstname;
@@ -144,6 +175,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $param_username = $username;
             $param_email = $email;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash and salt
+            $param_bank = $bank;
+            $param_account = $account;
+            $param_s_key = $s_key;
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
@@ -199,49 +233,50 @@ unset($pdo);
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div>
                 <label for="firstname"><strong>First Name</strong></label><br>
-                <input type="text" name="firstname" id="firstname" value="<?php echo $firstname; ?>" class="form-control">
+                <input type="text" name="firstname" id="firstname" value="<?php echo $firstname; ?>" class="form-control"  required>
                 <span class="error"><?php echo $errors['firstname'] ?? '' ?></span>
             </div>
             <br>
             <div>
                 <label for="lastname"><strong>Last Name</strong></label><br>
-                <input type="text" name="lastname" id="lastname" value="<?php echo $lastname; ?>" class="form-control">
+                <input type="text" name="lastname" id="lastname" value="<?php echo $lastname; ?>" class="form-control" required>
                 <span class="error"><?php echo $errors['lastname'] ?? '' ?></span>
             </div>
             <br>
             <div>
                 <label for="username"><strong>Username</strong></label><br>
-                <input type="text" name="username" id="username" value="<?php echo $username; ?>" class="form-control">
+                <input type="text" name="username" id="username" value="<?php echo $username; ?>" class="form-control" required>
                 <span class="error"><?php echo $errors['username'] ?? '' ?></span>
             </div>
             <br>
             <div>
                 <label for="email"><strong>Email</strong></label><br>
-                <input type="text" name="email" id="email" value="<?php echo $email; ?>" class="form-control">
+                <input type="text" name="email" id="email" value="<?php echo $email; ?>" class="form-control" required>
                 <span class="error"><?php echo $errors['email'] ?? '' ?></span>
             </div>
             <br>
             <div>
                 <label for="password"><strong>Password</strong></label><br>
-                <input type="password" name="password" id="password" value="" class="form-control">
+                <input type="password" name="password" id="password" value="" class="form-control" required>
                 <span class="error"><?php echo $errors['password'] ?? '' ?></span>
             </div>
             <br>
             <div>
                 <label for="bank"><strong>Bank</strong></label><br>
-                <input type="text" name="bank" id="bank" value="" class="form-control">
+                <input type="text" name="bank" id="bank" value="" class="form-control"  required>
                 <span class="error"><?php echo $errors['bank'] ?? '' ?></span>
             </div>
             <br>
             <div>
                 <label for="account"><strong>Account Number</strong></label><br>
-                <input type="text" name="account" id="account" value="" class="form-control">
-                <span class="error"><?php echo $errors['password'] ?? '' ?></span>
+                <input type="text" name="account" id="account" value="" class="form-control"  required>
+                <span class="error"><?php echo $errors['account'] ?? '' ?></span>
             </div>
             <br>
             <div>
-                <input type="checkbox" name="terms" id="terms" value="">
-                I agree to the terms and conditions
+                <label for="account"><strong>Security Key</strong></label><br>
+                <input type="text" name="s_key" id="s_key" value="" class="form-control" required>
+                <span class="error"><?php echo $errors['s_key'] ?? '' ?></span>
             </div>
             <br>
             <div>

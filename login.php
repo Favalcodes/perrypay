@@ -91,7 +91,7 @@
                             
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
-                            // $_SESSION["id"] = $id;
+                            $_SESSION["id"] = $id;
                             $_SESSION["email"] = $email;
                             // $_SESSION["username"] = $username;                            
                             

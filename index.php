@@ -1,15 +1,75 @@
 <?php
 
+session_start();
+
+// include config file
+include 'config.php';
+
+// SQL query to select data from database 
+// $sql = "SELECT * FROM users where id = $_SESSION[id]";
+// $result = $link->query($sql) or die("Error: " . mysqli_error($link));
+
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://rest.coinapi.io/v1/exchangerate/BTC?invert=true&asset_id_base=BTC',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'X-CoinAPI-Key: 03B83426-7EAD-4BDD-B796-AF9C2D08AE09'
+  ),
+));
+
+$response = curl_exec($curl);
+$data = json_decode($response);
+$ngn_rate = $data->rates[2748]->rate;
+$usd_rate = $data->rates[2532]->rate;
+// var_dump($data);
+// echo $ngn;
+// echo $usd;
+curl_close($curl);
+// echo $response;
+
+$curll = curl_init();
+
+curl_setopt_array($curll, array(
+  CURLOPT_URL => 'https://rest.coinapi.io/v1/exchangerate/ETH?invert=true&asset_id_base=ETH',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+  CURLOPT_HTTPHEADER => array(
+    'X-CoinAPI-Key: 03B83426-7EAD-4BDD-B796-AF9C2D08AE09'
+  ),
+));
+
+$respond = curl_exec($curll);
+$dat = json_decode($respond);
+$naira =2578;
+$dollar = 1649;
+var_dump($dat);
+curl_close($curl2);
+echo $respond;
+
 $amount = $coin = $usd = $ngn = '';
 if (isset($_GET['amount']) && isset($_GET['coin'])) {
     // if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $amount = $_POST['amount'];
     $coin = $_POST['coin'];
     if ($coin == 'bitcoin') {
-        $usd = 57380.840 * $amount;
-        $ngn =     25821378 * $amount;
+        $usd = 1 / $usd_rate;
+        $ngn =     1 / $ngn_rate;
     }
-    if ($coin == 'ethereum') {
+    elseif ($coin == 'ethereum') {
         $usd = 1962.880 * $amount;
         $ngn = 883296 * $amount;
     }
