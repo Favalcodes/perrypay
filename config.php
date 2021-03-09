@@ -6,7 +6,7 @@
 
 	define ('DB_SERVER', 'localhost');
 	define ('DB_USERNAME', 'root');
-	define ('DB_PASSWORD', '');
+	define ('DB_PASSWORD', '2468');
 	define ('DB_NAME', 'perrypays');
 
 	// Attempt to connect to database

@@ -56,9 +56,9 @@ $respond = curl_exec($curll);
 $dat = json_decode($respond);
 $naira =2578;
 $dollar = 1649;
-var_dump($dat);
-curl_close($curl2);
-echo $respond;
+// var_dump($dat);
+curl_close($curll);
+// echo $respond;
 
 $amount = $coin = $usd = $ngn = '';
 if (isset($_GET['amount']) && isset($_GET['coin'])) {

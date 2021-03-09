@@ -249,8 +249,67 @@ curl_close($curl);
                         </div>
                     </div>
 
-                    <button class="coin-btn">
-                        Calculator
+                    <button class="coin-btn" type="button" data-toggle="modal" data-target="#buycoin">
+                        Buy Coins
+                    </button>
+                    <!-- Modals -->
+                    <div class="modal fade" id="buycoin" tabindex="-1" aria-labelledby="buycoinLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="coinwithdrawalLabel">Coin Exchange</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h6>$1</h6>
+                                            <p>USD</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6>NGN 450</h6>
+                                            <p>Naira Buy Rate</p>
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-dark">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Coin</th>
+                                                <th scope="col">USD</th>
+                                                <th scope="col">NGN</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>BTC</td>
+                                                <td>$50,823.960</td>
+                                                <td>₦22,970,782</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>ETH</td>
+                                                <td>$1,805.230</td>
+                                                <td>₦753,353.500</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <button class="coin-btn" type="button" data-toggle="modal" data-target="#coinexchange">
+                        Top-Up Wallet
                     </button>
                 </div>
                 <div class="transaction-body">

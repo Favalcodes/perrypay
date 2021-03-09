@@ -19,7 +19,7 @@ html {
     min-width: 300px;
 }
 
-/* body {
+body {
     height: calc(100% - 14px);
     width: calc(100% - 14px);
     margin: 7px;
@@ -27,7 +27,7 @@ html {
     background: linear-gradient(180deg, #1d1d1d 55%, #024d21);
     font-family: Montserrat;
     align-items: center;
-} */
+}
 .perry-logo{
     width: 80px;
     height: 60px;
