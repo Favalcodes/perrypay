@@ -17,26 +17,58 @@ if ($user !== true) {
     exit();
 }
 
+// Include config file
+require_once "../config.php";
+
+$email = $_SESSION['email'];
+$errors = [];
+
+// Prepare a select statement
+$sql = "SELECT * FROM users WHERE email = :email";
+if ($stmt = $pdo->prepare($sql)) {
+    // Bind variables to the prepared statement as parameters
+    $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+    $param_email = $email;
+
+    // Attempt to execute the prepared statement
+    if ($stmt->execute()) {
+        // Check if email exists
+        if ($stmt->rowCount() == 1) {
+            $row = $stmt->fetch();
+
+            $firstName = $row['firstname'];
+            $lastName = $row['lastname'];
+            $email = $row['email'];
+            $username = $row['username'];
+            $mobileNumber = $row['mobile_number'] ?? '';
+            $bank = $row['bank'] ?? '';
+            $accountType = $row['account_type'] ?? '';
+            $accountNumber = $row['account_number'] ?? '';
+            $fileNameNew = $row['image'];
+        }
+    }
+}
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://rest.coinapi.io/v1/exchangerate/BTC?invert=true&asset_id_base=BTC',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'X-CoinAPI-Key: 03B83426-7EAD-4BDD-B796-AF9C2D08AE09'
-  ),
+    CURLOPT_URL => 'https://rest.coinapi.io/v1/exchangerate/BTC?invert=true&asset_id_base=BTC',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+        'X-CoinAPI-Key: 03B83426-7EAD-4BDD-B796-AF9C2D08AE09'
+    ),
 ));
 
 $response = curl_exec($curl);
 $data = json_decode($response);
-$ngn = $data->rates[2748]->rate;
-$usd = $data->rates[2532]->rate;
+// $ngn = $data->rates[2748]->rate;
+// $usd = $data->rates[2532]->rate;
 // var_dump($data);
 // echo $ngn;
 // echo $usd;
@@ -55,7 +87,6 @@ curl_close($curl);
     <script src="assets/js/jquery-1.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <style type="text/css">
 
@@ -88,18 +119,15 @@ curl_close($curl);
 </head>
 
 <body>
-    <div class="overlay">
-        <form class="save_x">
-
-        </form>
-    </div>
     <div class='sidebar'>
         <div href='' onclick='window.location = this.getAttribute("href")' class='logo'><a href="../index.php"><img src="../images/perry.png" alt="" class="perry-logo" width="100" height="100"></a></div>
         <ul class="maxsid">
-            <li class="chosen"><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Home</a></li>
+            <li class="chosen"><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Dashboard</a></li>
             <li><i class="fa fa-user"></i><a href="profile.php" class="nav-link"> Profile</a></li>
-            <li><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Sales</a></li>
+            <li><i class="fa fa-user"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
+            <li><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Transactions</a></li>
             <li><i class="fa fa-gear"></i><a href="setting.php" class="nav-link">Settings</a></li>
+            <li><i class="fa fa-gear"></i><a href="support.php" class="nav-link"> Contact Support </a></li>
             <li><i class="fa fa-sign-out"></i><a href="logout.php" class="nav-link"> Logout</a></li>
         </ul>
     </div>
@@ -257,48 +285,69 @@ curl_close($curl);
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="coinwithdrawalLabel">Coin Exchange</h5>
+                                    <h5 class="modal-title" id="coinwithdrawalLabel">Buy Coins</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h6>$1</h6>
-                                            <p>USD</p>
+                                    <form id="paymentForm">
+                                        <div class="form-group">
+                                            <label for="email">Email Address</label>
+                                            <input type="email" id="email-address" value="<?php echo $email ?>" required readonly/>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="amount">Amount</label>
+                                            <input type="tel" id="amount"  required />
                                         </div>
-                                        <div class="col-md-4">
-                                            <h6>NGN 450</h6>
-                                            <p>Naira Buy Rate</p>
+                                        <div class="form-group">
+                                            <label for="first-name">First Name</label>
+                                            <input type="text" id="first-name" value="<?php echo $firstName ?>" required readonly/>
                                         </div>
-                                    </div>
-                                    <table class="table table-striped table-dark">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Coin</th>
-                                                <th scope="col">USD</th>
-                                                <th scope="col">NGN</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>BTC</td>
-                                                <td>$50,823.960</td>
-                                                <td>₦22,970,782</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>ETH</td>
-                                                <td>$1,805.230</td>
-                                                <td>₦753,353.500</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                        <div class="form-group">
+                                            <label for="last-name">Last Name</label>
+                                            <input type="text" id="last-name" value="<?php echo $lastName ?>" readonly required/>
+                                        </div>
+                                        <div class="form-submit">
+                                            <button type="submit" onclick="payWithPaystack()"> Pay </button>
+                                        </div>
+                                    </form>
+                                    <script src="https://js.paystack.co/v1/inline.js"></script>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="coin-btn" type="button" data-toggle="modal" data-target="#wallet">
+                        Top-Up Wallet
+                    </button>
+
+                    <div class="modal fade" id="wallet" tabindex="-1" aria-labelledby="walletLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="coinwithdrawalLabel">Top-up Wallet</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="walletForm" method="POST" action="pay.php">
+                                        <div class="form-group">
+                                            <label for="email">Email Address</label>
+                                            <input type="email" id="email" value="<?php echo $email ?>" required readonly/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Amount</label>
+                                            <input type="tel" id="amt"  required />
+                                        </div>
+                                        <div class="form-submit">
+                                            <button type="submit"> Pay </button>
+                                        </div>
+                                    </form>
+                                    <script src="https://js.paystack.co/v1/inline.js"></script>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -307,28 +356,78 @@ curl_close($curl);
                         </div>
                     </div>
 
-
-                    <button class="coin-btn" type="button" data-toggle="modal" data-target="#coinexchange">
-                        Top-Up Wallet
-                    </button>
                 </div>
                 <div class="transaction-body">
                     <h5>Latest Transaction</h5>
                     <hr>
+                    <?php echo $_SESSION['email'] ?>
                 </div>
             </div>
             <div class="bottom_bar bb_b">
                 <ul class="maxsid">
-                    <li class="chosen"><i class="fa fa-home"></i><span>Home</span></li>
-                    <li><i class="fa fa-bar-chart-o"></i> <span>Report</span></li>
-                    <li><i class="fa fa-envelope-o"></i> <span>Messages</span></li>
-                    <li><i class="fa fa-gear"></i> <span>Settings</span></li>
+                    <li><a href="index.php" class="nav-link"><i class="fa fa-home"></i></a></li>
+                    <li><a href="profile.php" class="nav-link"><i class="fa fa-user"></i></a></li>
+                    <li><a href="sale.php" class="nav-link"><i class="fa fa-bar-chart-o"></i></a></li>
+                    <li><a href="setting.php" class="nav-link"><i class="fa fa-gear"></i></a></li>
+                    <li><a href="logout.php" class="nav-link"><i class="fa fa-sign-out"></i></a></li>
                 </ul>
             </div>
         </div>
     </div>
 
 </body>
+
+<script>
+    const paymentForm = document.getElementById('paymentForm');
+    paymentForm.addEventListener("submit", payWithPaystack, false);
+
+    function payWithPaystack(e) {
+        e.preventDefault();
+        let handler = PaystackPop.setup({
+            key: 'pk_test_dd6460edf885aaa50130d985de7e106cdbc8980b', // Replace with your public key
+            email: document.getElementById("email-address").value,
+            amount: document.getElementById("amount").value * 100,
+            // ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+            // label: "Optional string that replaces customer email"
+            onClose: function() {
+                windows.location = "http://localhost/github/perrypay/dashboard/index.php?transaction=cancel";
+                alert('Window closed.');
+            },
+            callback: function(response) {
+                let message = 'Payment complete! Reference: ' + response.reference + ' and It has been sent to your email too';
+                alert(message);
+                window.location = "http://localhost/github/perrypay/dashboard/verify_transaction.php?reference=" + response.reference;
+                console.log(response);
+            }
+        });
+        handler.openIframe();
+        console.log(response);
+    };
+    
+    const walletForm = document.getElementById('walletForm');
+    walletForm.addEventListener("submit", payWithPaystackWallet, false);
+
+    function payWithPaystackWallet() {
+        // e.preventDefault();
+        let handler = PaystackPop.setup({
+            key: 'pk_test_dd6460edf885aaa50130d985de7e106cdbc8980b', // Replace with your public key
+            email: document.getElementById("email").value,
+            amount: document.getElementById("amt").value * 100,
+            // ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+            // label: "Optional string that replaces customer email"
+            onClose: function() {
+                // alert('Window closed.');
+        console.log(response);
+            },
+            callback: function(response) {
+                let message = 'Payment complete! Reference: ' + response.reference + ' and It has been sent to your email too';
+                alert(message);
+            }
+        });
+        handler.openIframe();
+        console.log(response);
+    }
+</script>
 
 
 </html>

@@ -305,7 +305,7 @@ body {
 .nav-link {
   color: var(--secondary);
   display: inline;
-  margin: 10px;
+  margin: 0px;
 }
 .nav-link:hover {
   color: var(--tertiary);

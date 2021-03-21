@@ -8,7 +8,6 @@
     <script src="assets/js/jquery-1.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="assets/css/theme.css">
     <style type="text/css">
 
@@ -41,18 +40,15 @@
 </head>
 
 <body>
-    <div class="overlay">
-        <form class="save_x">
-
-        </form>
-    </div>
     <div class='sidebar'>
         <div href='' onclick='window.location = this.getAttribute("href")' class='logo'><img src="../images/perry.png" alt="" class="perry-logo" width="100" height="100"></div>
         <ul class="maxsid">
-            <li><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Home</a></li>
+            <li><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Dashboard</a></li>
             <li><i class="fa fa-user"></i><a href="profile.php" class="nav-link"> Profile</a></li>
-            <li class="chosen"><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Sales</a></li>
-            <li><i class="fa fa-gear"></i><a href="setting.php" class="nav-link"> Settings</a></li>
+            <li><i class="fa fa-user"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
+            <li class="chosen"><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Transactions</a></li>
+            <li><i class="fa fa-gear"></i><a href="setting.php" class="nav-link">Settings</a></li>
+            <li><i class="fa fa-gear"></i><a href="support.php" class="nav-link"> Contact Support </a></li>
             <li><i class="fa fa-sign-out"></i><a href="logout.php" class="nav-link"> Logout</a></li>
         </ul>
     </div>
@@ -68,37 +64,48 @@
         <div class="row second-content">
             <div class="col-md-6 coin-market">
                 <h5>Coin Market</h5>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Coin</th>
-                            <th scope="col">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">USD</th>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">NGN</th>
-                            <td>460</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Bitcoin</th>
-                            <td>25</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Ethereum</th>
-                            <td>25</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive-md">
+                    <table class="table table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th scope="col">Coin</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">USD</th>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">NGN</th>
+                                <td>460</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Bitcoin</th>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Ethereum</th>
+                                <td>25</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-md-6 trans-history">
                 <h5>Transaction History</h5>
                 <hr>
             </div>
+        </div>
+        <div class="bottom_bar bb_b">
+            <ul class="maxsid">
+                <li><a href="index.php" class="nav-link"><i class="fa fa-home"></i></a></li>
+                <li><a href="profile.php" class="nav-link"><i class="fa fa-user"></i></a></li>
+                <li><a href="sale.php" class="nav-link"><i class="fa fa-bar-chart-o"></i></a></li>
+                <li><a href="setting.php" class="nav-link"><i class="fa fa-gear"></i></a></li>
+                <li><a href="logout.php" class="nav-link"><i class="fa fa-sign-out"></i></a></li>
+            </ul>
         </div>
     </div>
 </body>

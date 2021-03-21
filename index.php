@@ -28,8 +28,8 @@ curl_setopt_array($curl, array(
 
 $response = curl_exec($curl);
 $data = json_decode($response);
-$ngn_rate = $data->rates[2748]->rate;
-$usd_rate = $data->rates[2532]->rate;
+// $ngn_rate = $data->rates[2748]->rate;
+// $usd_rate = $data->rates[2532]->rate;
 // var_dump($data);
 // echo $ngn;
 // echo $usd;

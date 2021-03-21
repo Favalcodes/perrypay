@@ -59,3 +59,20 @@ a:hover{
     height: 80px;
     width: 80px;
 }
+
+@media only screen and (max-width: 500px) {
+    .card{
+        width: 80%;
+        margin: 0px auto;
+        padding: 20px;
+        background-color: #10da53;
+    }
+    .reg-body{
+        height: calc(100% - 14px);
+        width: calc(100% - 14px);
+        margin: 40px 0px;
+        background: linear-gradient(180deg, #1d1d1d 55%, #024d21);
+        font-family: Montserrat;
+        align-items: center;
+    }
+}
