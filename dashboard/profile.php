@@ -146,14 +146,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class='sidebar'>
-        <div href='' onclick='window.location = this.getAttribute("href")' class='logo'><img src="../images/perry.png" alt="" class="perry-logo" width="100" height="100"></div>
+        <div href='' onclick='window.location = this.getAttribute("href")' class='logo'><a href="../index.php">PerryPays</a></div>
         <ul class="maxsid">
             <li><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Dashboard</a></li>
             <li class="chosen"><i class="fa fa-user"></i><a href="profile.php" class="nav-link"> Profile</a></li>
-            <li><i class="fa fa-user"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
+            <li><i class="fa fa-credit-card-alt"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
             <li><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Transactions</a></li>
             <li><i class="fa fa-gear"></i><a href="setting.php" class="nav-link">Settings</a></li>
-            <li><i class="fa fa-gear"></i><a href="support.php" class="nav-link"> Contact Support </a></li>
+            <li><i class="fa fa-users"></i><a href="contact.php" class="nav-link"> Contact Support </a></li>
             <li><i class="fa fa-sign-out"></i><a href="logout.php" class="nav-link"> Logout</a></li>
         </ul>
     </div>
@@ -199,8 +199,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <ul class="maxsid">
                 <li><a href="index.php" class="nav-link"><i class="fa fa-home"></i></a></li>
                 <li><a href="profile.php" class="nav-link"><i class="fa fa-user"></i></a></li>
+                <li><a href="wallet.php" class="nav-link"><i class="fa fa-credit-card-alt"></i></a></li>
                 <li><a href="sale.php" class="nav-link"><i class="fa fa-bar-chart-o"></i></a></li>
                 <li><a href="setting.php" class="nav-link"><i class="fa fa-gear"></i></a></li>
+                <li><a href="contact.php" class="nav-link"><i class="fa fa-users"></i></a></li>
                 <li><a href="logout.php" class="nav-link"><i class="fa fa-sign-out"></i></a></li>
             </ul>
         </div>

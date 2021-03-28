@@ -3,59 +3,214 @@
 session_start();
 
 // include config file
-include 'config.php';
+include 'database.php';
 
+// require_once 'contact_details.php';
+
+
+// Define variables and initialize with empty values
+$full_name = $email = $subject = $message = "";
+$full_name_err = $email_err = $subject_err = $message_err = "";
+
+// Processing form data when form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Validate Full Name
+    if (empty(trim($_POST["fullname"]))) {
+        $full_name_err = "Please enter your Name.";
+    } else {
+        // Prepare a select statement
+        $sql = "SELECT * FROM contact WHERE fullname = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_full_name);
+
+            // Set parameters
+            $param_full_name = trim($_POST["fullname"]);
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+                $full_name = trim($_POST["fullname"]);
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+    // Validate email
+    if (empty(trim($_POST["email"]))) {
+        $email_err = "Please enter a valid email.";
+    } else {
+        // Prepare a select statement
+        $sql = "SELECT * FROM contact WHERE email = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_email);
+
+            // Set parameters
+            $param_email = trim($_POST["email"]);
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+                $email = trim($_POST["email"]);
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+    // Validate subject
+    if (empty(trim($_POST["subject"]))) {
+        $subject_err = "Please enter a subject.";
+    } else {
+        // Prepare a select statement
+        $sql = "SELECT * FROM contact WHERE subject = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_subject);
+
+            // Set parameters
+            $param_subject = trim($_POST["subject"]);
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+                $subject = trim($_POST["subject"]);
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+    // Validate message
+    if (empty(trim($_POST["message"]))) {
+        $message_err = "Please enter a message.";
+    } else {
+        // Prepare a select statement
+        $sql = "SELECT * FROM contact WHERE message = ?";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_message);
+
+            // Set parameters
+            $param_message = trim($_POST["message"]);
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                /* store result */
+                mysqli_stmt_store_result($stmt);
+                $message = trim($_POST["message"]);
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+    // Check input errors before inserting in database
+    if (empty($full_name_err) && empty($email_err) && empty($subject_err) && empty($message_err)) {
+
+        // Prepare an insert statement
+        $sql = "INSERT INTO contact (fullname, email, subject, message) VALUES (?, ?, ?, ?)";
+
+        if ($stmt = mysqli_prepare($link, $sql)) {
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "ssss", $param_full_name, $param_email, $param_subject, $param_message);
+
+            // Set parameters
+            $param_full_name = $full_name;
+            $param_email = $email;
+            $param_subject = $subject;
+            $param_message = $message;
+
+            // Attempt to execute the prepared statement
+            if (mysqli_stmt_execute($stmt)) {
+                // Redirect to dashboard page
+                header("location: index.php");
+            } else {
+                echo "Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+}
 // SQL query to select data from database 
-// $sql = "SELECT * FROM users where id = $_SESSION[id]";
-// $result = $link->query($sql) or die("Error: " . mysqli_error($link));
+// $sql = "SELECT * FROM users where email = $_SESSION[email]";
+// $output = $link->query($sql) or die("Error: " . mysqli_error($link));
 
 
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://rest.coinapi.io/v1/exchangerate/BTC?invert=true&asset_id_base=BTC',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'X-CoinAPI-Key: 03B83426-7EAD-4BDD-B796-AF9C2D08AE09'
-  ),
+    CURLOPT_URL => 'https://rest.coinapi.io/v1/exchangerate/BTC?invert=true&asset_id_base=BTC',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+        'X-CoinAPI-Key: 03B83426-7EAD-4BDD-B796-AF9C2D08AE09'
+    ),
 ));
 
 $response = curl_exec($curl);
 $data = json_decode($response);
-// $ngn_rate = $data->rates[2748]->rate;
-// $usd_rate = $data->rates[2532]->rate;
+$ngn_rate = $data->rates[2748]->rate;
+$usd_rate = $data->rates[2532]->rate;
 // var_dump($data);
-// echo $ngn;
-// echo $usd;
+echo $ngn_rate;
+echo $usd_rate;
 curl_close($curl);
 // echo $response;
 
 $curll = curl_init();
 
 curl_setopt_array($curll, array(
-  CURLOPT_URL => 'https://rest.coinapi.io/v1/exchangerate/ETH?invert=true&asset_id_base=ETH',
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => '',
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => 'GET',
-  CURLOPT_HTTPHEADER => array(
-    'X-CoinAPI-Key: 03B83426-7EAD-4BDD-B796-AF9C2D08AE09'
-  ),
+    CURLOPT_URL => 'https://rest.coinapi.io/v1/exchangerate/ETH?invert=true&asset_id_base=ETH',
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => '',
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 0,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => 'GET',
+    CURLOPT_HTTPHEADER => array(
+        'X-CoinAPI-Key: 03B83426-7EAD-4BDD-B796-AF9C2D08AE09'
+    ),
 ));
 
 $respond = curl_exec($curll);
 $dat = json_decode($respond);
-$naira =2578;
-$dollar = 1649;
+$naira = $dat->rates[2578]->rate;
+$dollar = $dat->rates[1649]->rates;
+
+echo $naira;
+echo $dollar;
 // var_dump($dat);
 curl_close($curll);
 // echo $respond;
@@ -68,14 +223,18 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
     if ($coin == 'bitcoin') {
         $usd = 1 / $usd_rate;
         $ngn =     1 / $ngn_rate;
-    }
-    elseif ($coin == 'ethereum') {
+    } elseif ($coin == 'ethereum') {
         $usd = 1962.880 * $amount;
         $ngn = 883296 * $amount;
     }
 }
 
 ?>
+<script>
+   fetch("https://api.nomics.com/v1/exchange-rates?key=your-key-here")
+  .then(response => response.json())
+  .then(data => console.log(data))
+</script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -119,7 +278,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                     <div class="col-lg-8 col-md-8 col-sm-7 hidden-xs">
                         <div class="pull-right">
                             <span class="top-link"><i class="fa fa-phone"></i> +234 1112223344</span>
-                            <span class="top-link"><i class="fa fa-envelope"></i> info@perrypay.com</span>
+                            <span class="top-link"><i class="fa fa-envelope"></i> info@perrypays.com</span>
                             <span class="navigation-search top-link">
                                 <a href="#"><i class="fa fa-search"></i></a>
                             </span>
@@ -134,8 +293,8 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
             <!-- navigation -->
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <a class="logo" href="index.php"><img src="images/perry.png" alt="" class="perry-logo"></a>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 logo">
+                        <a href="index.php">PerryPays</a>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div id="navigation" class="navigation">
@@ -144,8 +303,17 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                                 <li><a href="#about" title="About">About</a></li>
                                 <li><a href="#test" title="Testimonials">Testimonials</a></li>
                                 <li><a href="#contact" title="Contact">Contact</a></li>
+                                <?php
+                                if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)  {
+        // while ($tablerows = mysqli_fetch_array($output)) {
+      ?>
+            <li><a href="dashboard/index.php">Dashboard</a>
+            </li>
+        <?php 
+      } else { ?>
                                 <li><a href="login.php" class="btn btn-default">Login</a></li>
                                 <li><a href="sign-up.php" title="Create Account">Create Account</a></li>
+                                <?php } ?>
 
                                 <!-- <li><a href="blog.html" title="Blog" class="animsition-link">Blog</a>
                                         <ul>
@@ -206,14 +374,14 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                         <tr>
                             <th scope="row">1</th>
                             <td>BTC</td>
-                            <td>$48,823.960</td>
-                            <td>₦21,970,782</td>
+                            <td id="usd_btc">0.00</td>
+                            <td id="ngn_btc">0.00</td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
                             <td>ETH</td>
-                            <td>$1,805.230</td>
-                            <td>₦812,353.500</td>
+                            <td id="usd_eth">0.00</td>
+                            <td id="ngn_eth">0.00</td>
                         </tr>
                     </tbody>
                 </table>
@@ -221,28 +389,27 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
             <div class="col-md-6 pl-5">
                 <h1>Exchange rates calculator</h1>
                 <hr>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get">
+                <form name="form" id="coin-form" method="post">
                     <div class="row">
                         <div class="col-md-6">
                             <p>Coin</p>
-                            <select name="coin" id="coin" class="mb-2">
-                                <option value="">--Select Currency--</option>
-                                <option value="bitcoin">Bitcoin</option>
-                                <option value="ethereum">Ethereum</option>
+                            <select name="coin-options" id="coin-options" class="mb-2">
+                                <option value="USD">USD</option>
+                                <option value="NGN">NGN</option>
                             </select>
                             <br>
                             <br>
-                            <p>USD</p>
-                            <input type="number" name="" id="" value="<?php echo $usd ?? '' ?>" placeholder="0" disabled>
+                            <p>Bitcoin</p>
+                            <input type="number" name="" id="coin-btc" placeholder="0" disabled>
                         </div>
                         <div class="col-md-6 ">
                             <p>Amount</p>
-                            <input type="number" name="amount" id="amount" placeholder="Coin amount">
+                            <input type="number" name="amount" id="coin-amount" value="0" placeholder="Coin amount">
                             <!-- The above has to be generated dynamically from the BE -->
                             <br>
                             <br>
-                            <p>NGN</p>
-                            <input type="number" name="" id="" value="<?php echo $ngn ?? '' ?>" placeholder="0" disabled>
+                            <p>Ethereum</p>
+                            <input type="number" name="" id="coin-eth" placeholder="0" disabled>
                         </div>
                     </div>
                 </form>
@@ -458,7 +625,6 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                     <h1 class="cta-title">Get in touch <br>
                         Call, email 24/7 or visit a branch</h1>
                     <p class="cta-text">We are always there to help you all the way.</p>
-                    <a href="#" class="btn btn-white mb30">Get Started Now</a>
                 </div>
                 <div class="col-lg-offset-1 col-lg-4 col-md-offset-1 col-md-4 col-sm-6 col-xs-12">
                     <div class="bg-white pinside30 cta-info">
@@ -468,7 +634,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
                         </div>
                         <div class="cta-mail">
                             <i class="fa fa-envelope"></i>
-                            <span>Info@payperry.com</span>
+                            <span>Info@payperrys.com</span>
                         </div>
                         <div class="cta-address">
                             <i class="fa fa-map-marker"></i>
@@ -493,26 +659,26 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
             </div>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <form>
+                    <form method="POST" action="">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4">
+                                <input type="email" class="form-control" id="inputEmail4" name="email">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Name</label>
-                                <input type="text" class="form-control" id="inputPassword4">
+                                <input type="text" class="form-control" id="inputPassword4" name="fullname">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputAddress">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                            <label for="inputAddress">Subject</label>
+                            <input type="text" class="form-control" id="inputSubject" name="subject">
                         </div>
                         <div class="form-group">
                             <label for="inputAddress2">Message</label>
                             <textarea name="message" id="" cols="30" rows="10" class="form-control"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-success">Contact Us</button>
+                        <button type="submit" name="submit" class="btn btn-success">Contact Us</button>
                     </form>
                 </div>
             </div>
@@ -639,6 +805,7 @@ if (isset($_GET['amount']) && isset($_GET['coin'])) {
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="js/app.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

@@ -18,62 +18,35 @@ if ($user !== true) {
 }
 
 // Include config file
-require_once "../config.php";
+// require_once "../config.php";
+
+include 'database.php';
 
 $email = $_SESSION['email'];
 $errors = [];
 
-// Prepare a select statement
-$sql = "SELECT * FROM users WHERE email = :email";
-if ($stmt = $pdo->prepare($sql)) {
-    // Bind variables to the prepared statement as parameters
-    $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
-    $param_email = $email;
+$em = $_SESSION['email'];
+$tran = "SELECT * FROM transactions where email = '$em' ORDER BY id DESC LIMIT 10";
+$output = $link->query($tran) or die("Error: " . mysqli_error($link));
 
-    // Attempt to execute the prepared statement
-    if ($stmt->execute()) {
-        // Check if email exists
-        if ($stmt->rowCount() == 1) {
-            $row = $stmt->fetch();
+$bc = "SELECT * FROM transactions where email = '$em' and coin = 'BTC'";
+$bcout = $link->query($bc) or die("Error: " . mysqli_error($link));
 
-            $firstName = $row['firstname'];
-            $lastName = $row['lastname'];
-            $email = $row['email'];
-            $username = $row['username'];
-            $mobileNumber = $row['mobile_number'] ?? '';
-            $bank = $row['bank'] ?? '';
-            $accountType = $row['account_type'] ?? '';
-            $accountNumber = $row['account_number'] ?? '';
-            $fileNameNew = $row['image'];
-        }
+$et = "SELECT * FROM transactions where email = '$em' and coin = 'ETH'";
+$etout = $link->query($et) or die("Error: " . mysqli_error($link));
+
+$sql = "SELECT * FROM users where email = '$em'";
+$result = $link->query($sql) or die("Error: " . mysqli_error($link));
+
+$wal = "SELECT * FROM wallet where email = '$em'";
+$out = $link->query($wal) or die("Error: " . mysqli_error($link));
+
+
+if (isset($_POST['proceed'])) {
+    while ($row = mysqli_fetch_array($out)) {
+        $money = $row['amount'];
     }
 }
-
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://rest.coinapi.io/v1/exchangerate/BTC?invert=true&asset_id_base=BTC',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'GET',
-    CURLOPT_HTTPHEADER => array(
-        'X-CoinAPI-Key: 03B83426-7EAD-4BDD-B796-AF9C2D08AE09'
-    ),
-));
-
-$response = curl_exec($curl);
-$data = json_decode($response);
-// $ngn = $data->rates[2748]->rate;
-// $usd = $data->rates[2532]->rate;
-// var_dump($data);
-// echo $ngn;
-// echo $usd;
-curl_close($curl);
-// echo $response;
 
 ?>
 
@@ -120,14 +93,14 @@ curl_close($curl);
 
 <body>
     <div class='sidebar'>
-        <div href='' onclick='window.location = this.getAttribute("href")' class='logo'><a href="../index.php"><img src="../images/perry.png" alt="" class="perry-logo" width="100" height="100"></a></div>
+        <div href='' onclick='window.location = this.getAttribute("href")' class='logo'><a href="../index.php">PerryPays</a></div>
         <ul class="maxsid">
             <li class="chosen"><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Dashboard</a></li>
             <li><i class="fa fa-user"></i><a href="profile.php" class="nav-link"> Profile</a></li>
-            <li><i class="fa fa-user"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
+            <li><i class="fa fa-credit-card-alt"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
             <li><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Transactions</a></li>
             <li><i class="fa fa-gear"></i><a href="setting.php" class="nav-link">Settings</a></li>
-            <li><i class="fa fa-gear"></i><a href="support.php" class="nav-link"> Contact Support </a></li>
+            <li><i class="fa fa-users"></i><a href="contact.php" class="nav-link"> Contact Support </a></li>
             <li><i class="fa fa-sign-out"></i><a href="logout.php" class="nav-link"> Logout</a></li>
         </ul>
     </div>
@@ -148,18 +121,32 @@ curl_close($curl);
                         <input type="search" name="search" class="search_g" placeholder="Search...">
                     </form>
                 </div>
-                <div class="right">
-                    <div class="user">FullName</div>
-                </div>
             </div>
             <div class="mainC">
                 <div class="wallet">
                     <h3>Wallet</h3>
-                    <strong>NGN 0.00</strong>
+                    <?php while ($tab = mysqli_fetch_array($out)) { ?>
+                        <strong>NGN <?php echo $tab['amount'] ?></strong>
+                    <?php } ?>
+                </div>
+                <div class="coins">
+                    <div class="first">
+                        <h5>BTC</h5>
+                        <?php while ($btc = mysqli_fetch_array($bcout)) { ?>
+                            <strong><?php echo $btc['coin_amount'] ?></strong>
+                        <?php } ?>
+                    </div>
+                    <div class="second">
+                        <h5>ETH</h5>
+                        <?php while ($eth = mysqli_fetch_array($etout)) { ?>
+                            <strong><?php echo $eth['coin_amount'] ?></strong>
+                        <?php } ?>
+                    </div>
+
                 </div>
                 <div class="open-modal">
                     <button class="coin-btn" type="button" data-toggle="modal" data-target="#coinwithdrawal">
-                        Coin Withdrawal
+                        Coin Withdraw
                     </button>
 
                     <!-- Modals -->
@@ -177,39 +164,36 @@ curl_close($curl);
                                         <div class="col-md-4"></div>
                                         <div class="col-md-4">
                                             <h6>Minimuim Withdrawal</h6>
-                                            <p>$1</p>
+                                            <p>NGN100</p>
                                         </div>
                                         <div class="col-md-4">
                                             <h6>Maximum Withdrawal</h6>
-                                            <p>$10,000</p>
+                                            <p>NGN1,000,000</p>
                                         </div>
                                     </div>
-                                    <form>
+                                    <form method="POST" action="withdraw.php">
+                                        <input type="email" id="email-address" name="email" value="<?php echo $_SESSION['email'] ?>" class="form-control" required hidden />
                                         <div class="form-group">
                                             <label for="exampleFormControlInput1">Withdraw from</label>
-                                            <select class="form-control" id="exampleFormControlSelect1">
+                                            <select class="form-control" id="selectCoin" name="coin">
                                                 <option hidden>--Select Coin --</option>
-                                                <option value="bitcoin">Bitcoin</option>
-                                                <option value="ethereum">Ethereum</option>
+                                                <option value="BTC">Bitcoin</option>
+                                                <option value="ETH">Ethereum</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <h6>Withdraw amount $</h6>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="$">
+                                                    <h6>Coin amount</h6>
+                                                    <input type="text" class="form-control" name="coin_amount" id="coinAmt">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <h6>Naira Conversion</h6>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="NGN">
+                                                    <input type="text" class="form-control" name="amount" id="naira" placeholder="0" readonly required>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Security Key</label>
-                                            <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="****">
-                                        </div>
-                                        <button type="submit" class="btn coin-btn">Withdraw</button>
+                                        <button type="submit" name="proceed" class="btn coin-btn">Withdraw</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -258,14 +242,14 @@ curl_close($curl);
                                             <tr>
                                                 <th scope="row">1</th>
                                                 <td>BTC</td>
-                                                <td>$50,823.960</td>
-                                                <td>₦22,970,782</td>
+                                                <td id="usd_btc">0.00</td>
+                                                <td id="ngn_btc">0.00</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">2</th>
                                                 <td>ETH</td>
-                                                <td>$1,805.230</td>
-                                                <td>₦753,353.500</td>
+                                                <td id="usd_eth">0.00</td>
+                                                <td id="ngn_eth">0.00</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -278,10 +262,10 @@ curl_close($curl);
                     </div>
 
                     <button class="coin-btn" type="button" data-toggle="modal" data-target="#buycoin">
-                        Buy Coins
+                        Buy BTC
                     </button>
                     <!-- Modals -->
-                    <div class="modal fade" id="buycoin" tabindex="-1" aria-labelledby="buycoinLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                    <div class="modal fade" id="buycoin" tabindex="-1" aria-labelledby="buycoinLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -291,28 +275,76 @@ curl_close($curl);
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="paymentForm">
+                                    <form id="paymentForm" method="POST" action="pay.php">
                                         <div class="form-group">
                                             <label for="email">Email Address</label>
-                                            <input type="email" id="email-address" value="<?php echo $email ?>" required readonly/>
+                                            <input type="email" id="email-address" name="email" value="<?php echo $_SESSION['email'] ?>" class="form-control" required readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" value="NGN" hidden />
                                         </div>
                                         <div class="form-group">
                                             <label for="amount">Amount</label>
-                                            <input type="tel" id="amount"  required />
+                                            <input type="tel" id="amt" name="amount" class="form-control" required />
                                         </div>
                                         <div class="form-group">
-                                            <label for="first-name">First Name</label>
-                                            <input type="text" id="first-name" value="<?php echo $firstName ?>" required readonly/>
+                                            <label for="coin">Coin</label>
+                                            <input type="text" name="coin" value="BTC" class="form-control" id="coin" readonly required>
                                         </div>
                                         <div class="form-group">
-                                            <label for="last-name">Last Name</label>
-                                            <input type="text" id="last-name" value="<?php echo $lastName ?>" readonly required/>
+                                            <label for="coin_amount">Coin Amount</label>
+                                            <input type="text" id="coinAmount" class="form-control" name="coin_amount" readonly required />
                                         </div>
                                         <div class="form-submit">
-                                            <button type="submit" onclick="payWithPaystack()"> Pay </button>
+                                            <button type="submit" name="proceed"> Pay </button>
                                         </div>
                                     </form>
-                                    <script src="https://js.paystack.co/v1/inline.js"></script>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="coin-btn" type="button" data-toggle="modal" data-target="#buycoineth">
+                        Buy ETH
+                    </button>
+                    <!-- Modals -->
+                    <div class="modal fade" id="buycoineth" tabindex="-1" aria-labelledby="buycoinLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="coinwithdrawalLabel">Buy Coins</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="paymentForm" method="POST" action="pay.php">
+                                        <div class="form-group">
+                                            <label for="email">Email Address</label>
+                                            <input type="email" id="email-address" name="email" value="<?php echo $_SESSION['email'] ?>" class="form-control" required readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" value="NGN" hidden />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="amount">Amount</label>
+                                            <input type="tel" id="amount" class="form-control" name="amount" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="coin">Coin</label>
+                                            <input type="text" name="coin" class="form-control" value="ETH" id="coin" readonly required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="coin_amount">Coin Amount</label>
+                                            <input type="text" id="coin_amount" class="form-control" name="coin_amount" readonly required />
+                                        </div>
+                                        <div class="form-submit">
+                                            <button type="submit" name="proceed"> Pay </button>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -324,7 +356,7 @@ curl_close($curl);
                         Top-Up Wallet
                     </button>
 
-                    <div class="modal fade" id="wallet" tabindex="-1" aria-labelledby="walletLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                    <div class="modal fade" id="wallet" tabindex="-1" aria-labelledby="walletLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -334,23 +366,26 @@ curl_close($curl);
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="walletForm" method="POST" action="pay.php">
+                                    <form id="walletForm" method="POST" action="initialize.php">
                                         <div class="form-group">
                                             <label for="email">Email Address</label>
-                                            <input type="email" id="email" value="<?php echo $email ?>" required readonly/>
+                                            <input type="email" id="email" name="email" class="form-control" value="<?php echo $email ?>" required readonly />
                                         </div>
                                         <div class="form-group">
                                             <label for="amount">Amount</label>
-                                            <input type="tel" id="amt"  required />
+                                            <input type="tel" id="amt" name="amount" class="form-control" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="tel" id="wal" class="form-control" name="wallet" value="1" hidden />
                                         </div>
                                         <div class="form-submit">
-                                            <button type="submit"> Pay </button>
+                                            <button type="submit" class="btn btn-primary" name="submit"> Pay </button>
                                         </div>
                                     </form>
                                     <script src="https://js.paystack.co/v1/inline.js"></script>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -360,15 +395,35 @@ curl_close($curl);
                 <div class="transaction-body">
                     <h5>Latest Transaction</h5>
                     <hr>
-                    <?php echo $_SESSION['email'] ?>
+                    <?php
+                    while ($tablerow = mysqli_fetch_array($output)) {
+                    ?>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <?php echo $tablerow['updated_at'] ?>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $tablerow['amount'] ?>
+                            </div>
+                            <div class="col-md-2">
+                                <?php echo $tablerow['coin'] ?>
+                            </div>
+                            <div class="col-md-3">
+                                <?php echo $tablerow['coin_amount'] ?>
+                            </div>
+                        </div>
+                        <hr>
+                    <?php } ?>
                 </div>
             </div>
             <div class="bottom_bar bb_b">
                 <ul class="maxsid">
                     <li><a href="index.php" class="nav-link"><i class="fa fa-home"></i></a></li>
                     <li><a href="profile.php" class="nav-link"><i class="fa fa-user"></i></a></li>
+                    <li><a href="wallet.php" class="nav-link"><i class="fa fa-credit-card-alt"></i></a></li>
                     <li><a href="sale.php" class="nav-link"><i class="fa fa-bar-chart-o"></i></a></li>
                     <li><a href="setting.php" class="nav-link"><i class="fa fa-gear"></i></a></li>
+                    <li><a href="contact.php" class="nav-link"><i class="fa fa-users"></i></a></li>
                     <li><a href="logout.php" class="nav-link"><i class="fa fa-sign-out"></i></a></li>
                 </ul>
             </div>
@@ -376,57 +431,19 @@ curl_close($curl);
     </div>
 
 </body>
-
+<script type="text/javascript" src="assets/js/app.js"></script>
 <script>
-    const paymentForm = document.getElementById('paymentForm');
-    paymentForm.addEventListener("submit", payWithPaystack, false);
-
-    function payWithPaystack(e) {
-        e.preventDefault();
-        let handler = PaystackPop.setup({
-            key: 'pk_test_dd6460edf885aaa50130d985de7e106cdbc8980b', // Replace with your public key
-            email: document.getElementById("email-address").value,
-            amount: document.getElementById("amount").value * 100,
-            // ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-            // label: "Optional string that replaces customer email"
-            onClose: function() {
-                windows.location = "http://localhost/github/perrypay/dashboard/index.php?transaction=cancel";
-                alert('Window closed.');
-            },
-            callback: function(response) {
-                let message = 'Payment complete! Reference: ' + response.reference + ' and It has been sent to your email too';
-                alert(message);
-                window.location = "http://localhost/github/perrypay/dashboard/verify_transaction.php?reference=" + response.reference;
-                console.log(response);
-            }
-        });
-        handler.openIframe();
-        console.log(response);
+    var settings = {
+        "url": "https://api.nomics.com/v1/exchange-rates?key=d0a9c5291efed251b6fd8c7b0b026255",
+        "method": "GET",
+        "timeout": 0,
     };
-    
-    const walletForm = document.getElementById('walletForm');
-    walletForm.addEventListener("submit", payWithPaystackWallet, false);
 
-    function payWithPaystackWallet() {
-        // e.preventDefault();
-        let handler = PaystackPop.setup({
-            key: 'pk_test_dd6460edf885aaa50130d985de7e106cdbc8980b', // Replace with your public key
-            email: document.getElementById("email").value,
-            amount: document.getElementById("amt").value * 100,
-            // ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-            // label: "Optional string that replaces customer email"
-            onClose: function() {
-                // alert('Window closed.');
+    $.ajax(settings).done(function(response) {
         console.log(response);
-            },
-            callback: function(response) {
-                let message = 'Payment complete! Reference: ' + response.reference + ' and It has been sent to your email too';
-                alert(message);
-            }
-        });
-        handler.openIframe();
-        console.log(response);
-    }
+        var json = JSON.parse(response);
+        console.log(json[0].currency);
+    });
 </script>
 
 

@@ -1,15 +1,42 @@
 <?php
 
-include 'database.php';
-
+// Initialize the session
 session_start();
 
-$em = $_SESSION['email'];
-$tran = "SELECT * FROM transactions where email = '$em' ORDER BY id DESC LIMIT 10";
+if (isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === true) {
+    $user = true;
+}
+if (isset($_COOKIE["active"]) || isset($_COOKIE["id"]) || isset($_COOKIE["email"])) {
+    $user = true;
+}
+if (isset($_SESSION['access_token'])) {
+    $user = true;
+}
+if ($user !== true) {
+    header("location:../login.php");
+    exit();
+}
+
+// Include config file
+require_once "database.php";
+
+// Define variables and initialize with empty values
+$email = $_SESSION['email'];
+
+$tran = "SELECT * FROM withdraw where email = '$email' ORDER BY id DESC LIMIT 10";
 $output = $link->query($tran) or die("Error: " . mysqli_error($link));
 
+$wal = "SELECT * FROM wallet where email = '$email'";
+$out = $link->query($wal) or die("Error: " . mysqli_error($link));
+
+$bc = "SELECT * FROM transactions where email = '$email' and coin = 'BTC'";
+$bcout = $link->query($bc) or die("Error: " . mysqli_error($link));
+
+$et = "SELECT * FROM transactions where email = '$email' and coin = 'ETH'";
+$etout = $link->query($et) or die("Error: " . mysqli_error($link));
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +44,11 @@ $output = $link->query($tran) or die("Error: " . mysqli_error($link));
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PerryPay Dashboard</title>
+    <style>
+        .error {
+            color: #FF0000;
+        }
+    </style>
     <script src="assets/js/jquery-1.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
@@ -57,63 +89,65 @@ $output = $link->query($tran) or die("Error: " . mysqli_error($link));
         <ul class="maxsid">
             <li><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Dashboard</a></li>
             <li><i class="fa fa-user"></i><a href="profile.php" class="nav-link"> Profile</a></li>
-            <li><i class="fa fa-credit-card-alt"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
-            <li class="chosen"><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Transactions</a></li>
+            <li class="chosen"><i class="fa fa-credit-card-alt"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
+            <li><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Transactions</a></li>
             <li><i class="fa fa-gear"></i><a href="setting.php" class="nav-link">Settings</a></li>
             <li><i class="fa fa-users"></i><a href="contact.php" class="nav-link"> Contact Support </a></li>
             <li><i class="fa fa-sign-out"></i><a href="logout.php" class="nav-link"> Logout</a></li>
         </ul>
     </div>
     <div class='content'>
-        <div class="open-modal">
-            <button class="coin-btn" type="button" data-toggle="modal" data-target="#coinwithdrawal">
-                Coin Withdraw
+        <div class="setting-content">
+            <div class="wallet">
+                <h3>Wallet</h3>
+                <?php while ($tab = mysqli_fetch_array($out)) { ?>
+                    <strong>NGN <?php echo $tab['amount'] ?></strong>
+                <?php } ?>
+            </div>
+            <div class="coins">
+                <div class="first">
+                    <h5>BTC</h5>
+                    <?php while ($btc = mysqli_fetch_array($bcout)) { ?>
+                        <strong><?php echo $btc['coin_amount'] ?></strong>
+                    <?php } ?>
+                </div>
+                <div class="second">
+                    <h5>ETH</h5>
+                    <?php while ($eth = mysqli_fetch_array($etout)) { ?>
+                        <strong><?php echo $eth['coin_amount'] ?></strong>
+                    <?php } ?>
+                </div>
+
+            </div>
+            <button class="coin-btn" type="button" data-toggle="modal" data-target="#wallet">
+                Top-Up Wallet
             </button>
 
-            <!-- Modals -->
-            <div class="modal fade" id="coinwithdrawal" tabindex="-1" aria-labelledby="coinwithdrawalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+            <div class="modal fade" id="wallet" tabindex="-1" aria-labelledby="walletLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="coinwithdrawalLabel">Withdraw From Coin Wallet</h5>
+                            <h5 class="modal-title" id="coinwithdrawalLabel">Top-up Wallet</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-4">
-                                    <h6>Minimuim Withdrawal</h6>
-                                    <p>NGN100</p>
-                                </div>
-                                <div class="col-md-4">
-                                    <h6>Maximum Withdrawal</h6>
-                                    <p>NGN1,000,000</p>
-                                </div>
-                            </div>
-                            <form>
+                            <form id="walletForm" method="POST" action="initialize.php">
                                 <div class="form-group">
-                                    <label for="exampleFormControlInput1">Withdraw from</label>
-                                    <select class="form-control" id="selectCoin">
-                                        <option hidden>--Select Coin --</option>
-                                        <option value="BTC">Bitcoin</option>
-                                        <option value="ETH">Ethereum</option>
-                                    </select>
+                                    <label for="email">Email Address</label>
+                                    <input type="email" id="email" name="email" value="<?php echo $email ?>" required readonly />
                                 </div>
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h6>Coin amount</h6>
-                                            <input type="text" class="form-control" id="coinAmt">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h6>Naira Conversion</h6>
-                                            <input type="text" class="form-control" id="naira" placeholder="0" readonly required>
-                                        </div>
-                                    </div>
+                                    <label for="amount">Amount</label>
+                                    <input type="tel" id="amt" name="amount" required />
                                 </div>
-                                <button type="submit" class="btn coin-btn">Withdraw</button>
+                                <div class="form-group">
+                                    <input type="tel" id="wal" name="wallet" value="1" hidden />
+                                </div>
+                                <div class="form-submit">
+                                    <button type="submit" class="btn btn-primary" name="submit"> Pay </button>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -122,51 +156,8 @@ $output = $link->query($tran) or die("Error: " . mysqli_error($link));
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row second-content">
-            <div class="col-md-6 coin-market">
-                <h5>Coin Market</h5>
-                <div class="table-responsive-md">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h6>$1</h6>
-                            <p>USD</p>
-                        </div>
-                        <div class="col-md-4">
-                        </div>
-                        <div class="col-md-4">
-                            <h6>NGN 450</h6>
-                            <p>Naira Buy Rate</p>
-                        </div>
-                    </div>
-                    <table class="table table-striped table-dark">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Coin</th>
-                                <th scope="col">USD</th>
-                                <th scope="col">NGN</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>BTC</td>
-                                <td id="usd_btc">0.00</td>
-                                <td id="ngn_btc">0.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>ETH</td>
-                                <td id="usd_eth">0.00</td>
-                                <td id="ngn_eth">0.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="col-md-6 trans-history">
-                <h5>Transaction History</h5>
+            <div class="transaction-body">
+                <h5>Latest Withdraws</h5>
                 <hr>
                 <?php
                 while ($tablerow = mysqli_fetch_array($output)) {
@@ -202,7 +193,27 @@ $output = $link->query($tran) or die("Error: " . mysqli_error($link));
         </div>
     </div>
 </body>
-<script src="assets/js/app.js"></script>
+
+<!-- Modals -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -23,12 +23,12 @@ if (isset($_POST['proceed'])) {
 
         $check = "SELECT * FROM transactions where email = '$email' and coin = '$coin'";
         $output = $link->query($check) or die("Error: " . mysqli_error($link));
-        $update = date('Y-m-d H:i:s');
 
         if (mysqli_num_rows($output) === 0) {
 
-            $sql = "INSERT INTO transactions (email, amount, coin, coin_amount, updated_at) VALUES ('$email', '$amount', '$coin', '$coin_amount', '$update')";
+            $sql = "INSERT INTO transactions (email, amount, coin, coin_amount) VALUES ('$email', '$amount', '$coin', '$coin_amount')";
         } elseif (mysqli_num_rows($output) === 1) {
+            $update = date('Y-m-d H:i:s');
             while ($tab = mysqli_fetch_array($output)) {
                 $money = $tab['coin_amount'];
                 $coin_amount += $money;
@@ -37,9 +37,10 @@ if (isset($_POST['proceed'])) {
             }
             $sql = "UPDATE transactions SET coin_amount = '$coin_amount', amount = '$amount', updated_at = '$update'  WHERE email = '$email' and coin = '$coin'";
         }
-
+        
         $wallet_money = $wallet - $amount;
-        $save = "UPDATE wallet SET amount = '$wallet_money', updated_at = '$update' WHERE email = '$email'";
+        
+        $save = "UPDATE wallet SET amount = '$wallet_money', updated_at = '$update'  WHERE email = '$email'";
         if (mysqli_query($link, $sql)) {
             echo '<script>alert("Coin Bought Successfully");
             window.location.href="index.php"</script>';
@@ -47,7 +48,7 @@ if (isset($_POST['proceed'])) {
         } else {
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
         }
-    } else {
+    }else{
         echo '<script>alert("Insufficient Balance");
         window.location.href="index.php"</script>';
     }

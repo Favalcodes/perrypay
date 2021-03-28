@@ -137,66 +137,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class='sidebar'>
-        <div href='' onclick='window.location = this.getAttribute("href")' class='logo'><img src="../images/perry.png" alt="" class="perry-logo" width="100" height="100"></div>
+        <div href='../index.php' class='logo'><a href="../index.php">PerryPays</a></div>
         <ul class="maxsid">
-            <li><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Home</a></li>
+            <li><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Dashboard</a></li>
             <li><i class="fa fa-user"></i><a href="profile.php" class="nav-link"> Profile</a></li>
-            <li><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Sales</a></li>
-            <li class="chosen"><i class="fa fa-gear"></i><a href="setting.php" class="nav-link"> Settings</a></li>
+            <li><i class="fa fa-credit-card-alt"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
+            <li><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Transactions</a></li>
+            <li><i class="fa fa-gear"></i><a href="setting.php" class="nav-link">Settings</a></li>
+            <li class="chosen"><i class="fa fa-users"></i><a href="contact.php" class="nav-link"> Contact Support </a></li>
             <li><i class="fa fa-sign-out"></i><a href="logout.php" class="nav-link"> Logout</a></li>
         </ul>
     </div>
     <div class='content'>
-        <div class="setting-content">
+        <div class="contact-content">
+            <h3>Get in Touch</h3>
+            <p>We have provided a number of support channels
+                to help you get what you want. Chat with an agent and get your issues resolved instantly. Available 24/7.</p>
             <div class="row">
                 <div class="col-md-12">
-                    <h6 class="mb-3">Change Password</h6>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">New Password</label>
-                            <input type="password" name="new_password" class="form-control pwd" value="<?php echo $new_password; ?>" id="exampleInputPassword">
-                            <span class="error"><?php echo $errors['new_password_err'] ?? '' ?></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Confirm Password</label>
-                            <input type="password" name="confirm_password" class="form-control pwd" value="<?php echo $confirm_password; ?>" id="exampleInputPassword">
-                            <span class="error"><?php echo $errors['confirm_password_err'] ?? '' ?></span>
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Sign me out</label>
-                        </div>
-                        <button type="submit" class="coin-btn">Submit</button>
-                    </form>
+                    <h4>Address</h4>
+                    <p>No 2 idimigun quarters, Ughoton/Jeddo. Warri Delta state</p>
                 </div>
-
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h6 class="mb-3 mt-2">Change Bank Details</h6>
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">New Bank</label>
-                            <input type="text" class="form-control" id="exampleInputPassword">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">New Account Number</label>
-                            <input type="text" class="form-control" id="exampleInputPassword">
-                        </div>
-                        <button type="submit" class="coin-btn">Submit</button>
-                    </form>
+                    <h4>Social Media</h4>
+                    <a href="https://instagram.com/perrypays" target="_blank"><i class="fa fa-instagram"></i></a>
                 </div>
             </div>
+            <a href="https://wa.me/2349076352506" target="_blank" class="float">
+                <i class="fa fa-whatsapp my-float"></i>
+            </a>
         </div>
         <div class="bottom_bar bb_b">
             <ul class="maxsid">
-                <li><i class="fa fa-home"></i><a href="index.php" class="nav-link"> Dashboard</a></li>
-                <li><i class="fa fa-user"></i><a href="profile.php" class="nav-link"> Profile</a></li>
-                <li><i class="fa fa-user"></i><a href="wallet.php" class="nav-link"> Wallet</a></li>
-                <li><i class="fa fa-bar-chart-o"></i><a href="sale.php" class="nav-link"> Transactions</a></li>
-                <li class="chosen"><i class="fa fa-gear"></i><a href="setting.php" class="nav-link">Settings</a></li>
-                <li><i class="fa fa-gear"></i><a href="support.php" class="nav-link"> Contact Support </a></li>
-                <li><i class="fa fa-sign-out"></i><a href="logout.php" class="nav-link"> Logout</a></li>
+                <li><a href="index.php" class="nav-link"><i class="fa fa-home"></i></a></li>
+                <li><a href="profile.php" class="nav-link"><i class="fa fa-user"></i></a></li>
+                <li><a href="wallet.php" class="nav-link"><i class="fa fa-credit-card-alt"></i></a></li>
+                <li><a href="sale.php" class="nav-link"><i class="fa fa-bar-chart-o"></i></a></li>
+                <li><a href="setting.php" class="nav-link"><i class="fa fa-gear"></i></a></li>
+                <li><a href="contact.php" class="nav-link"><i class="fa fa-users"></i></a></li>
+                <li><a href="logout.php" class="nav-link"><i class="fa fa-sign-out"></i></a></li>
             </ul>
         </div>
     </div>
