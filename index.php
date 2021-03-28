@@ -162,11 +162,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // $output = $link->query($sql) or die("Error: " . mysqli_error($link));
 
 ?>
-<script>
-   fetch("https://api.nomics.com/v1/exchange-rates?key=your-key-here")
-  .then(response => response.json())
-  .then(data => console.log(data))
-</script>
 
 <!DOCTYPE html>
 <html lang="en">
