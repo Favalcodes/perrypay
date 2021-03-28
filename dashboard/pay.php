@@ -17,6 +17,8 @@ if (isset($_POST['proceed'])) {
     $coin = $_POST['coin'];
     $coin_amount = $_POST['coin_amount'];
 
+    $initial_amount = $amount;
+    $wall_money = $wallet - $initial_amount;
     echo "Redirecting, please wait ....";
 
     if ($amount < $wallet) {
@@ -38,11 +40,13 @@ if (isset($_POST['proceed'])) {
             $sql = "UPDATE transactions SET coin_amount = '$coin_amount', amount = '$amount', updated_at = '$update'  WHERE email = '$email' and coin = '$coin'";
         }
 
-        $wallet_money = $wallet - $amount;
-        $save = "UPDATE wallet SET amount = '$wallet_money', updated_at = '$update' WHERE email = '$email'";
+
         if (mysqli_query($link, $sql)) {
+            $save = "UPDATE wallet SET amount = '$wall_money', updated_at = '$update' WHERE email = '$email'";
+            if(mysqli_query($link, $save)){
             echo '<script>alert("Coin Bought Successfully");
             window.location.href="index.php"</script>';
+            }
             //    header("location: index.php");
         } else {
             echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
